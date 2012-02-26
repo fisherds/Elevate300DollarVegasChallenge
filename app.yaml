@@ -4,9 +4,55 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /
+  script: login.py
+
+- url: /entry/*
+  script: entry.py
+  
+- url: /leaderboard/*
+  script: leaderboard.py
+
+- url: /individual/*
+  script: individual.py
+  
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+  
+- url: /common\.css
+  static_files: common.css
+  upload: common\.css
+  
+- url: /login\.css
+  static_files: login.css
+  upload: login\.css
+  
+- url: /login\.js
+  static_files: login.js
+  upload: login\.js
+  
+- url: /entry\.css
+  static_files: entry.css
+  upload: entry\.css
+  
+- url: /entry\.js
+  static_files: entry.js
+  upload: entry\.js
+  
+- url: /leaderboard\.css
+  static_files: leaderboard.css
+  upload: leaderboard\.css
+  
+- url: /leaderboard\.js
+  static_files: leaderboard.js
+  upload: leaderboard\.js
+  
+- url: /individual\.css
+  static_files: individual.css
+  upload: individual\.css
+  
+- url: /individual\.js
+  static_files: individual.js
+  upload: individual\.js
 
-- url: .*
-  script: main.py
