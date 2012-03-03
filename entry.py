@@ -14,7 +14,7 @@ class EntryHandler(webapp.RequestHandler):
 		self.response.headers['Content-Type'] = 'text/html'
 		gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
 		values = {'gamblingTransactions': gamblingTransactions}
-		self.response.out.write(template.render('entry.html', values))
+		self.response.out.write(template.render('html/entry.html', values))
 	def post(self):
 		try:
 			gamblingTransaction = model.GamblingTransaction(
@@ -23,7 +23,7 @@ class EntryHandler(webapp.RequestHandler):
 				amount=float(self.request.get('amount')),
 				casino=self.request.get('casino'),
 				gamePlayed=self.request.get('gamePlayed'),
-				comment=self.request.get('comment'))
+				notes=self.request.get('notes'))
 			gamblingTransaction.put();
 		except ValueError:
 			# User entered a value that wasn't legal.  Ignore for now.

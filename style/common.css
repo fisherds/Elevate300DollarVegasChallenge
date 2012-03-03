@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    font-family: Helvetica;
+    background: #ddd;
+    color: #000000;
+    overflow: hidden;
+    -webkit-text-size-adjust: none;
+}
+
+body > h1 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+    line-height: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+    text-overflow: ellipsis;
+    color: #0d0;
+    background: url(../images/blackToolbar.png) #000 repeat-x;
+    border-bottom: 1px solid #3f4e63;
+}
+
+.button {
+    position: absolute;
+		cursor: pointer;
+		overflow: visible;
+    top: 7px;
+    right: 6px;
+    -webkit-border-radius: 0;
+    border-width: 0 8px 0 8px;
+    padding: 0;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
+    text-decoration: none;
+    background: none;
+}
+
+.button.left {
+  left: 6px;
+}
+
+
+

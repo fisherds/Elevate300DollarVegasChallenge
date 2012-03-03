@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Individual</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="apple-touch-icon" href="/images/blueButton.png">
+	<link rel="stylesheet" type="text/css" href="style/iphonenav.css">
+	<link rel="stylesheet" type="text/css" href="style/samples.css">
+	<link rel="stylesheet" type="text/css" href="style/common.css">
+	<script src="/js/iphonenav.js"></script>
+	<script src="/js/individual.js"></script>
+</head> 
+
+
+<body onorientationchange="updateOrientation()" orient="landscape">
+    <h1 id="pageTitle">Individual</h1>
+		<span class="button left" onClick="javascript:window.location.href='/leaderboard'">Leaderboard</span>
+    <span class="button" onClick="javascript:window.location.href='/entry'">Add Trans</span>
+    <a id="homeButton" class="button" href="./#Individual" style="display: none;">Individual</a>
+    <ul id="Individual" title="Individual" style="left: 0%; " selected="true">
+			{% for displayResult in displayResults %}
+			  <li><a href="/individual/#{{displayResult.challengeDescription}}">
+					{{displayResult.amountStr}} {{displayResult.challengeDescription}}</a></li>
+			{% endfor %}
+    </ul>
+
+		{% for displayResult in displayResults %}
+    <ul id="{{displayResult.challengeDescription}}" title="{{displayResult.challengeDescription}}"
+			parentname="Individual" style="left: -100%; ">
+				{% for gamblingEvent in displayResult.gamblingEvents %}	
+        <li style="margin-left: 10px">{{gamblingEvent.amount}}<br>{{gamblingEvent.casino}} {{gamblingEvent.gamePlayed}}<br>{{gamblingEvent.notes}}</li>
+        {% endfor %}
+    </ul>
+		{% endfor %}
+</body></html>

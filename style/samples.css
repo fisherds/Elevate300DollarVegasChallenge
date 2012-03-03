@@ -1,0 +1,78 @@
+/******************************************************************************
+ * Buttons
+ *****************************************************************************/
+.borderImageBtn
+{
+	margin: 0;
+	height: 30px;
+	width:110px;
+	text-align: center;
+	font: bold 12px/30px Helvetica, sans-serif;
+	text-decoration: none;
+	display: block;
+}
+.blueButton
+{
+	border-left: 12px;
+	border-right: 12px;
+	color: white;
+	text-shadow: #000 0px 1px 1px;
+	-webkit-border-image:url("../images/blueButton.png") 0 14 0 14;
+}
+.whiteButton
+{
+	border-left: 12px;
+	border-right: 12px;
+	color: black;
+	text-shadow: #fff 0px 1px 1px;
+	-webkit-border-image:url("../images/whiteButton.png") 0 14 0 14;
+}
+.blackButton
+{
+	border-left: 12px;
+	border-right: 12px;
+	color: white;
+	text-shadow: #000 0px 1px 1px;
+	-webkit-border-image:url("../images/grayButton.png") 0 14 0 14;
+}
+.blackLeftButton
+{
+	border-left: 12px;
+	border-right: 5px;
+	color: white;
+	text-shadow: #000 0px 1px 1px;
+	-webkit-border-image: url("../images/left.png") 0 5 0 12;
+}
+.blackRightButton
+{
+	border-left: 5px;
+	border-right: 12px;
+	color: white;
+	text-shadow: #000 0px 1px 1px;
+	-webkit-border-image: url("../images/right.png") 0 12 0 5;
+}
+
+li a 
+{
+	-webkit-tap-highlight-color: cornflowerblue;
+}
+
+body div ul {
+	padding: 0px;
+	width: 298px;
+	margin: 0px 0px;
+	margin-right: 10px;
+	background-color: white;
+	-webkit-border-radius: 8px;
+	border: 1px solid rgb(217,217,217); 
+}
+
+body div ul li {
+	/* line-height: 17px;*/
+	list-style-type: none;
+	color:black;
+	border-bottom: 1px rgb(217,217,217) solid;
+	padding: 10px 10px 17px 10px;
+	-webkit-tap-highlight-color: cornflowerblue;
+}
+

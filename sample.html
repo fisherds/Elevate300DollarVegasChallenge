@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Elevate $300</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="apple-touch-icon" href="/images/blueButton.png">
+	<link rel="stylesheet" type="text/css" href="style/iphonenav.css">
+	<link rel="stylesheet" type="text/css" href="style/samples.css">
+	<link rel="stylesheet" type="text/css" href="style/common.css">
+	<script type="text/javascript" language="javascript" src="./js/iphonenav.js"></script>
+</head> 
+
+<body onorientationchange="updateOrientation()" orient="landscape">
+    <h1 id="pageTitle">Elevate 300</h1>
+    <a id="homeButton" class="button" href="./#Leaderboard" style="display: none;">Leaderboard</a>
+    <span class="button">Add Transaction</span>
+    <ul id="Leaderboard" title="Leaderboard" style="left: 0%; " selected="true">
+        <li><a href="/#Dave">Dave</a></li>
+        <li><a href="/#Bob">Bob</a></li>
+    </ul>
+    <ul id="Bob" title="Bob" parentname="Leaderboard" style="left: -100%; ">
+        <li><a href="/#transaction1">Transaction 1</a></li>
+        <li><a href="/#transaction2">Transaction 2</a></li>
+        <li><a href="/#transaction3">Transaction 3</a></li>
+    </ul>
+	<div id="transaction1" class="panel" title="Transaction 1" parentname="Bob">
+		<center>
+			Trans 1
+		</center>
+  </div> 
+	<div id="transaction2" class="panel" title="Transaction 2" parentname="Bob">
+		<center>
+			Trans 2
+		</center>
+  </div> 
+	<div id="transaction3" class="panel" title="Transaction 3" parentname="Bob">
+			<center>
+				Trans 3
+			</center>
+	</div> 
+	<div id="Dave" class="panel" title="Dave" style="left: -100%; ">
+	 	<center>
+		<h3>Dave</h3>
+		<a class="borderImageBtn blueButton">Hi</a>
+    </center>
+	</div>
+</body></html>
