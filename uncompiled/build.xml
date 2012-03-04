@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<project name="Rose-Hulman Grid Extension" default="build">
+
+<!-- Defining variables for file locations -->
+	
+    <!-- Compiler Directory -->
+    <property name="closure-compiler.dir" value="${basedir}/../../../closure/closure-compiler" />
+	
+    <!-- The compiler jar file -->
+    <property name="closure-compiler.jar" value="${closure-compiler.dir}/build/compiler.jar" />
+	
+    <!-- Library Directory -->
+    <property name="closure-library.dir" value="${basedir}/../../../closure/closure-library" />
+
+    <!-- Templates Directory -->
+    <property name="closure-templates.dir" value="${basedir}/../../../closure/closure-templates" />
+
+    <!-- Output Build Directory -->
+    <property name="build.dir" value="${basedir}/../js" />
+	
+	<!-- Path to this project from base.js (used by depswriter.py) -->
+	<property name="fromBase.dir"
+		value="../../../../AppEngine/elevate300/uncompiled" />
+	
+  <!-- output wrapper function -->
+	<!-- Optional helper function used by the compiler target to allow spaces in the output file -->
+  <property name="outputwrapper" value="(function(){%output%})();" />
+	
+
+<!-- Reuseable commands -->
+
+	<!-- SoyToJsSrcCompiler command to generate .soy.js functions for Soy files -->
+	<macrodef name="generate-template">
+		<attribute name="inputfile" />
+		<attribute name="outputPathFormat" />
+		<sequential>
+			<java jar="${closure-templates.dir}/build/SoyToJsSrcCompiler.jar"
+				fork="true" failonerror="true" logError="true">
+				<arg line='--outputPathFormat "@{outputPathFormat}"' />
+				<arg line="--shouldGenerateJsdoc" />
+				<arg line="--shouldProvideRequireSoyNamespaces" />
+				<arg line='"@{inputfile}"' />
+			</java>
+		</sequential>
+	</macrodef>
+
+  <!-- Using calcdeps to compile the JavaScript (could also be used to generate a deps file) -->
+  <macrodef name="depswriter">
+    <attribute name="outputfile" />
+    <element name="extrapaths" optional="yes"/>
+    <sequential>
+      <exec executable="python" failonerror="true" logError="true">
+        <arg value="${closure-library.dir}/closure/bin/build/depswriter.py" />
+        <arg line='--output_file="@{outputfile}"' />
+        <extrapaths />
+      </exec>
+    </sequential>
+  </macrodef>
+	
+	<!-- Using calcdeps to compile the JavaScript (could also be used to generate a deps file) -->
+	<macrodef name="closure-compile">
+		<attribute name="inputfile" />
+		<attribute name="outputfile" />
+		<attribute name="compilerjarfile" default="${closure-compiler.jar}" />
+		<attribute name="compilationlevel" default="SIMPLE_OPTIMIZATIONS" />
+		<attribute name="outputmode" default="compiled" />
+		<element name="extraflags" optional="yes"/>
+		<element name="extrapaths" optional="yes"/>
+		<sequential>
+			<exec executable="python" failonerror="true" logError="true">
+				<arg value="${closure-library.dir}/closure/bin/calcdeps.py" />
+				<arg line='-i "@{inputfile}"' />
+				<arg line='--output_file "@{outputfile}"' />
+				<arg line='-p "${closure-library.dir}"' />
+				<arg line='-p "${closure-templates.dir}/javascript/soyutils_usegoog.js"' />
+				<extrapaths />
+				<arg line="-o @{outputmode}" />
+				<arg line='-c "@{compilerjarfile}"' />
+				<arg line='-f "--compilation_level=@{compilationlevel}"' />
+				<extraflags />
+			</exec>
+		</sequential>
+	</macrodef>
+	
+
+<!-- Targets -->
+
+  <target name="gen_js_deps" description="generates deps.js">
+    <depswriter outputFile="${basedir}/deps.js">
+      <extrapaths>
+        <arg line='--root_with_prefix="js ${fromBase.dir}/js"' />
+      </extrapaths>
+  	</depswriter>
+  </target>
+	
+	<!-- Options for the compilationlevels:
+		WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS" -->
+
+	<target name="transaction-compiled"
+    	description="generates transaction.js">
+    	<closure-compile
+    		inputfile="${basedir}/js/transaction.js"
+    		outputfile="${build.dir}/transaction.js"
+    		compilationlevel="SIMPLE_OPTIMIZATIONS" >
+    		<extrapaths>
+    			<arg line='-p "${basedir}"' />
+    		</extrapaths>
+    		<extraflags>
+    			<arg line='-f "--output_wrapper=${outputwrapper}"' />
+    			<!--<arg line='-f "XXformatting=PRETTY_PRINT"' /> -->
+    			<arg line='-f "--warning_level=VERBOSE"' />
+    			<!--arg line='-f "XXjscomp_error=checkTypes"' -->
+    		</extraflags>
+    	</closure-compile>
+    </target>
+	
+	<target name="build" depends="transaction-compiled" />
+    
+</project>

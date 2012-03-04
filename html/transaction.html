@@ -1,17 +1,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gambling Entry</title>
+<title>Transaction</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<link rel="apple-touch-icon" href="/images/blueButton.png">
 	<link rel="stylesheet" type="text/css" href="style/common.css">
-	<link rel="stylesheet" type="text/css" href="style/entry.css">
+	<link rel="stylesheet" type="text/css" href="style/transaction.css">
+
+	<script src="/js/transaction.js"></script>
+<!-- 
+  <script type="text/javascript" src="../../closure/closure-library/closure/goog/base.js"></script>
+  <script src="uncompiled/deps.js"></script>
+  <script type="text/javascript">
+    goog.require('elevate300.Transaction');
+  </script>
+   -->
 </head>
 <body>
-<h1>Entry Page</h1>	
+<h1>Transaction</h1>	
 	<span class="button left" onClick="javascript:window.location.href='/individual'">Individual</span>
   <span class="button" onClick="javascript:window.location.href='/leaderboard'">Leaderboard</span>
-<form action="/entry" method="post" accept-charset="utf-8">
+<form action="/transaction" method="post" accept-charset="utf-8">
 	<select name="name" id="name">
 		<option value="scott">Scott</option>
 	  <option value="rich">Rich</option>
@@ -45,8 +54,9 @@
 	<input type="submit" value="Add gambling transaction">
 </form>
 <hr>
+<h3>Debug info:</h3>
 {% for gamblingTransaction in gamblingTransactions %}
-<div>
+<div style="margin-left: 10px">
   {{gamblingTransaction.name}}
 	{{gamblingTransaction.challengeType}}
 	{{gamblingTransaction.amount}}
@@ -56,7 +66,7 @@
 </div>
 {% endfor %}
 <hr>
-	<a href="/leaderboard">Leaderboard</a>
-	<a href="/individual">Individual</a>
-<script src="/js/entry.js"></script>
+<script>
+  new elevate300.Transaction();
+</script>
 </body>

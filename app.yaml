@@ -20,8 +20,8 @@ handlers:
 - url: /trip/*
   script: trip.py
 
-- url: /entry/*
-  script: entry.py
+- url: /transaction/*
+  script: transaction.py
 
 - url: /leaderboard/*
   script: leaderboard.py

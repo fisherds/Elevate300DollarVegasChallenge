@@ -1,2 +1,4 @@
 *.pyc
 index.yaml
+.settings
+.project

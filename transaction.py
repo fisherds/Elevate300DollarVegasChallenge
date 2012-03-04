@@ -8,13 +8,13 @@ from google.appengine.ext.webapp import template
 import datetime
 import model
 
-class EntryHandler(webapp.RequestHandler):
+class TransactionHandler(webapp.RequestHandler):
 	def get(self):
 		time = datetime.datetime.now()
 		self.response.headers['Content-Type'] = 'text/html'
 		gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
 		values = {'gamblingTransactions': gamblingTransactions}
-		self.response.out.write(template.render('html/entry.html', values))
+		self.response.out.write(template.render('html/transaction.html', values))
 	def post(self):
 		try:
 			gamblingTransaction = model.GamblingTransaction(
@@ -28,10 +28,10 @@ class EntryHandler(webapp.RequestHandler):
 		except ValueError:
 			# User entered a value that wasn't legal.  Ignore for now.
 			pass
-		self.redirect('/entry')
+		self.redirect('/transaction')
 
 def main():
-	application = webapp.WSGIApplication([('/entry', EntryHandler)], debug=True)
+	application = webapp.WSGIApplication([('/transaction', TransactionHandler)], debug=True)
 	util.run_wsgi_app(application)
 
 
