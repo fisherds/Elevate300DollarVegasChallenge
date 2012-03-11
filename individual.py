@@ -11,17 +11,23 @@ import logging
 class IndividualHandler(webapp.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
-		gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
+		#gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
+		userprefs = model.get_userprefs()
+		query = db.Query(model.GamblingTransaction)
+		query.ancestor(model.get_current_trip())
+		query.order('-when')
+		gamblingTransactions = query.fetch(limit=100)
+		
 		
 		# Organize the transactions based on player and game type
 		playerResults = {}
 		for transaction in gamblingTransactions:
-			key = transaction.name
+			key = transaction.emailAddress
 			if not key in playerResults:
 				# This is a new entry in the playerResult fill in from scratch
 				playerResult = {}
 				playerResult['total'] = 0
-				playerResult['name'] = transaction.name
+				playerResult['name'] = transaction.emailAddress
 				playerResult['gamblingEvents'] = []
 			else:
 				playerResult = playerResults[key]
@@ -71,7 +77,7 @@ class IndividualHandler(webapp.RequestHandler):
 		logging.info(playerResults)
 		logging.info(displayResults)
 		values = {'displayResults': displayResults}
-		self.response.out.write(template.render('html/individual.html', values))
+		self.response.out.write(template.render('templates/individual.html', values))
 
 def main():
 	application = webapp.WSGIApplication([('/individual', IndividualHandler)], debug=True)

@@ -7,7 +7,11 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
-  
+
+- url: /info\.html
+  static_files: info.html
+  upload: info\.html
+
 - url: /style
   static_dir: style
 
@@ -17,17 +21,25 @@ handlers:
 - url: /js
   static_dir: js
 
-- url: /trip/*
-  script: trip.py
-
 - url: /transaction/*
   script: transaction.py
+  login: required
 
 - url: /leaderboard/*
   script: leaderboard.py
+  login: required
 
 - url: /individual/*
   script: individual.py
+  login: required
+
+- url: /options/*
+  script: options.py
+  login: required
+
+- url: /trip/*
+  script: trip.py
+  login: required
 
 - url: /
-  script: login.py
+  script: home.py

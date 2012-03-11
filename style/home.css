@@ -1,0 +1,24 @@
+body.home-logged-in {
+    background: #111;
+    color: #ddd;
+}
+body.home-not-logged-in {
+  color: #ccc;
+  background-color: #000;
+}
+img.logo {
+	width: 100%;
+}
+.subtitle {
+  font-style: italic;
+}
+.welcome {
+  font-style: italic;
+}
+.fine-print {
+  font-style: italic;
+  font-size: 8px;
+}
+	
+.trip-name {
+}

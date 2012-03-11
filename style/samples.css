@@ -13,16 +13,16 @@
 }
 .blueButton
 {
-	border-left: 12px;
-	border-right: 12px;
-	color: white;
-	text-shadow: #000 0px 1px 1px;
-	-webkit-border-image:url("../images/blueButton.png") 0 14 0 14;
+  border-left: 10px;
+  border-right: 10px;
+  color: white;
+  text-shadow: #000 0px 1px 1px;
+  -webkit-border-image:url("../images/blueButton.png") 0 14 0 14;
 }
 .whiteButton
 {
-	border-left: 12px;
-	border-right: 12px;
+	border-left: 10px;
+	border-right: 10px;
 	color: black;
 	text-shadow: #fff 0px 1px 1px;
 	-webkit-border-image:url("../images/whiteButton.png") 0 14 0 14;

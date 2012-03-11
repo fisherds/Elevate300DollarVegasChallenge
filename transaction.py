@@ -12,13 +12,21 @@ class TransactionHandler(webapp.RequestHandler):
 	def get(self):
 		time = datetime.datetime.now()
 		self.response.headers['Content-Type'] = 'text/html'
-		gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
+		#gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
+		
+		userprefs = model.get_userprefs()
+		query = db.Query(model.GamblingTransaction)
+		query.ancestor(userprefs.currentTrip)
+		query.order('-when')
+		gamblingTransactions = query.fetch(limit=100)
 		values = {'gamblingTransactions': gamblingTransactions}
-		self.response.out.write(template.render('html/transaction.html', values))
+		self.response.out.write(template.render('templates/transaction.html', values))
 	def post(self):
+		userprefs = model.get_userprefs()
 		try:
 			gamblingTransaction = model.GamblingTransaction(
-				name=self.request.get('name'),
+				parent = userprefs.currentTrip,
+				emailAddress=self.request.get('emailAddress'),
 				challengeType=int(self.request.get('challengeType')),
 				amount=float(self.request.get('amount')),
 				casino=self.request.get('casino'),

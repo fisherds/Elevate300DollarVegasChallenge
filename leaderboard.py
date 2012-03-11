@@ -11,19 +11,22 @@ import logging
 class LeaderboardHandler(webapp.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
-		gamblingTransactions = db.GqlQuery('SELECT * FROM GamblingTransaction ORDER BY when DESC')
+		userprefs = model.get_userprefs()
+		query = db.Query(model.GamblingTransaction)
+		query.ancestor(userprefs.currentTrip)
+		query.order('-when')
 		
 		# Organize the transactions based on player and game type
 		playerResults = {}
-		for transaction in gamblingTransactions:
+		for transaction in query:
 			if transaction.challengeType == 3:
 				continue
-			key = transaction.name + str(transaction.challengeType)
+			key = transaction.emailAddress + str(transaction.challengeType)
 			if not key in playerResults:
 				# This is a new entry in the playerResult fill in from scratch
 				playerResult = {}
 				playerResult['total'] = 150
-				playerResult['name'] = transaction.name
+				playerResult['name'] = transaction.emailAddress
 				playerResult['challengeType'] = transaction.challengeType
 				playerResult['gamblingEvents'] = []
 			else:
@@ -57,7 +60,7 @@ class LeaderboardHandler(webapp.RequestHandler):
 		displayResults = []
 		for aKey in allKeys:
 			displayResult = {}
-			displayResult['challengeDescription'] = playerResults[aKey]['name'] + ' type ' + str(playerResults[aKey]['challengeType'])
+			displayResult['challengeDescription'] = playerResults[aKey]['name'] + '_type_' + str(playerResults[aKey]['challengeType'])
 			if (playerResults[aKey]['total'] < 0):
 				amountStr = "-$%0.2f" % + abs(playerResults[aKey]['total'])
 			else:
@@ -78,7 +81,7 @@ class LeaderboardHandler(webapp.RequestHandler):
 		logging.info(playerResults)
 		logging.info(displayResults)
 		values = {'displayResults': displayResults}
-		self.response.out.write(template.render('html/leaderboard.html', values))
+		self.response.out.write(template.render('templates/leaderboard.html', values))
 
 def main():
 	application = webapp.WSGIApplication([('/leaderboard', LeaderboardHandler)], debug=True)

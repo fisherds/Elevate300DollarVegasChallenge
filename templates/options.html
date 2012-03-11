@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Elevate Tutoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="apple-touch-icon" href="/images/blueButton.png">
+  <link rel="stylesheet" type="text/css" href="style/common.css">
+  <link rel="stylesheet" type="text/css" href="style/samples.css">
+  <link rel="stylesheet" type="text/css" href="style/options.css">
+  <script src="/js/options.js"></script>
+</head>
+<body>
+<h1>Options</h1>
+  <span class="button left" onClick="javascript:window.location.href='/'">Home</span>
+  <!--
+  <span class="button" onClick="javascript:window.location.href='/trip'">New Trip</span>
+  -->
+<center>
+<div id="welcome">Your current trip is...</div>
+<div id="trip-name">{{currentTripName}}</div>
+<br>
+<form id="select-current-trip-form" action="/options" method="post" accept-charset="utf-8">
+  Change your current trip. <br>
+  <select name="current-trip-select" id="current-trip-select">
+  <option value="0">--</option>
+    {% for tripField in tripFields %}
+      <option value="{{tripField.tripKeyId}}">{{tripField.tripName}}</option>
+    {% endfor %}
+  </select>
+</form>
+Edit an existing trip. <br>
+ <select name="edit-trip-select" id="edit-trip-select">
+   <option value="0">--</option>
+   <option value="{{currentTripKeyId}}">{{currentTripName}}</option>
+   {% for tripField in tripFields %}
+     <option value="{{tripField.tripKeyId}}">{{tripField.tripName}}</option>
+   {% endfor %}
+ </select>
+ <br>
+ <br>
+ <div id="new-trip" class="borderImageBtn blueButton">Create a new trip</div>
+</center>
+  
+
+<script>
+  new elevate300.Options();
+</script>
+</body>

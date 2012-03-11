@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Elevate Tutoring</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="apple-touch-icon" href="/images/blueButton.png">
+	<link rel="stylesheet" type="text/css" href="style/common.css">
+  <link rel="stylesheet" type="text/css" href="style/samples.css">
+	<link rel="stylesheet" type="text/css" href="style/trip.css">
+  <script src="/js/trip.js"></script>
+</head>
+<body>
+<h1>Trip Editor</h1>
+	<span class="button left" onClick="javascript:window.location.href='/options'">Options</span>
+<form id="trip-form" action="/trip" method="post" accept-charset="utf-8">
+  <input type="text" name="tripKeyId" value="{{tripKeyId}}" style="display: none;">
+  <label id="tripLabel" class="trip-label" for="tripName">Trip name:</label>
+  <center>
+    <input  id="tripName" class="trip-box" type="text" name="tripName" value="{{tripName}}">
+  </center>
+  <hr>
+  <label class="text-input-label" for="displayName">Name:</label>
+  <input id="creator-display-name" class="text-input-box" type="text" name="displayName" value="{{creatorName}}">
+  <br>
+  <label class="text-input-label" for="emailAddress">Gmail:</label>
+  <input id="creator-email-address" class="text-input-box" type="text" name="emailAddress" value="{{creatorEmail}}" readonly="readonly">
+  <br>
+  <label class="text-input-label" for="phoneNumber">Phone:</label>
+  <input id="creator-phone-number" class="text-input-box" type="text" name="phoneNumber" value="{{creatorPhone}}">
+  <hr>
+  {% for tripMember in tripMembers %}
+    <label class="text-input-label" for="displayName">Name:</label>
+    <input class="text-input-box" type="text" name="displayName" value="{{tripMember.displayName}}">
+    <br>
+    <label class="text-input-label" for="emailAddress">Gmail:</label>
+    <input class="text-input-box" type="text" name="emailAddress" value="{{tripMember.emailAddress}}">
+    <br>
+    <label class="text-input-label" for="phoneNumber">Phone:</label>
+    <input class="text-input-box" type="text" name="phoneNumber" value="{{tripMember.phoneNumber}}">
+    <hr>
+  {% endfor %}
+  <div id="template">
+    <label class="text-input-label" for="displayName">Name:</label>
+    <input class="text-input-box" type="text" name="displayName" value="">
+    <br>
+    <label class="text-input-label" for="emailAddress">Gmail:</label>
+    <input class="text-input-box" type="text" name="emailAddress" value="">
+    <br>
+    <label class="text-input-label" for="phoneNumber">Phone:</label>
+    <input class="text-input-box" type="text" name="phoneNumber" value="">
+    <hr>
+  </div>
+</form>
+  <div id="add-member-button">
+    <img src="/images/addMember.png" alt="Add Member" title="Add Member" />
+  </div>
+  <br>
+  {% if canDelete %}
+  <div>
+  <span id="delete" class="borderImageBtn whiteButton">Delete</span>
+  </div>
+  {% endif %}
+  <div>
+  <span id="cancel" class="borderImageBtn whiteButton">Cancel</span>
+  <span id="submit" class="borderImageBtn blueButton">Submit</span>
+  </div>
+<script>
+  new elevate300.Trip();
+</script>
+</body>

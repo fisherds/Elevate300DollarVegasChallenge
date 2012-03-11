@@ -1,0 +1,51 @@
+body {
+	overflow: auto;
+}
+
+form {
+  margin-left: 10px;
+}
+
+#tripLabel {
+	font-family: Helvetica;
+	font: 22px bold;
+}
+
+#tripName {
+	font-size: 18px;
+	width: 80%;
+}
+
+.text-input-label {
+  display:inline-block;
+  width: 60px;
+}
+
+.text-input-box {
+  width: 120px;
+  margin: 5px 0;
+}
+
+#creator-email-address {
+	color: #777;
+}
+
+#cancel {
+  display: inline-block;
+  margin: 5px 10px;
+  width: 80px;
+  font-size: 18px;
+}
+
+#submit {
+  position: absolute;
+  display: inline-block;
+  margin-top: 5px;
+  width: 130px;
+  right: 14px;
+  font-size: 18px;
+}
+
+img {
+  width: 100%;
+}

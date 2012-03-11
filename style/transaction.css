@@ -1,7 +1,49 @@
-.entry-label {
+form {
+  margin-left: 10px;
+}
+
+select {
+  width: 45%;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.text-input-label {
 	display:inline-block;
 	width: 60px;
 }
-.entry-box {
+
+.text-input-box {
 	width: 120px;
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+#gamePlayed-text {
+	display: none;
+}
+
+#notes {
+  vertical-align:text-top;
+  margin-bottom: 5px;
+}
+
+#notes-label {
+  margin-top: 2px;
+}
+
+#cancel {
+  display: inline-block;
+  margin-top: 5px;
+  width: 80px;
+  font-size: 18px;
+}
+
+#submit {
+	position: absolute;
+  display: inline-block;
+	margin-top: 5px;
+	width: 130px;
+	right: 14px;
+  font-size: 18px;
 }

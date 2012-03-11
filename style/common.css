@@ -1,3 +1,17 @@
+#welcome {
+	text-align: left;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+#trip-name {
+	margin-top: 5px;
+	font-family: Helvetica;
+	font-size: 24px;
+  font-style: oblique;
+  font-weight: bold;
+}
+	
 body {
     margin: 0;
     font-family: Helvetica;
