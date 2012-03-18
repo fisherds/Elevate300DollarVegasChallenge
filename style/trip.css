@@ -1,33 +1,44 @@
 body {
 	overflow: auto;
+  background: #111;
+  color: #ddd;
 }
 
 form {
   margin-left: 10px;
 }
 
-#tripLabel {
-	font-family: Helvetica;
+#trip-label {
 	font: 22px bold;
+  font-family: Helvetica;
 }
 
-#tripName {
+hr {
+	margin: 5px 14px 5px 0;
+}
+	
+#trip-name {
 	font-size: 18px;
 	width: 80%;
+	margin-bottom: 10px;
 }
 
 .text-input-label {
   display:inline-block;
   width: 60px;
+  margin-left: 5px;
 }
 
 .text-input-box {
   width: 120px;
-  margin: 5px 0;
 }
 
 #creator-email-address {
 	color: #777;
+	background-color: #ddd;
+}
+h4 {
+	margin: 5px 0;
 }
 
 #cancel {

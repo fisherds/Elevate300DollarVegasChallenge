@@ -61,7 +61,7 @@ elevate300.Transaction.prototype.init_ = function() {
       this.handleResize_);
   
   // Listen for users selecting the 'Other' game option
-  var gamePlayedSelect = goog.dom.getElement('gamePlayed-select');
+  var gamePlayedSelect = goog.dom.getElement('game-played-select');
   gamePlayedSelect.onchange = goog.bind(this.gameChanged_, this);
 
   // Listen for the cancel button.
@@ -124,7 +124,7 @@ elevate300.Transaction.prototype.gameChanged_ = function(e) {
   var selectedText = selectElement.options[selectedIndex].text;
   if (selectedText == 'Other') {
     goog.style.setStyle(selectElement, 'display', 'none');
-    var gamePlayedText = goog.dom.getElement('gamePlayed-text');
+    var gamePlayedText = goog.dom.getElement('game-played-text');
     goog.style.setStyle(gamePlayedText, 'display', 'inline-block');
   }
 };
@@ -146,7 +146,7 @@ elevate300.Transaction.prototype.cancelButtonHandler_ = function(e) {
  */
 elevate300.Transaction.prototype.submitButtonHandler_ = function(e) {
   this.logger.info("Clicked submit");
-  var formEl = goog.dom.getElement('transactionForm');
+  var formEl = goog.dom.getElement('transaction-form');
   formEl.submit();
 };
 
@@ -171,14 +171,14 @@ elevate300.Transaction.prototype.resizeElements_ = function() {
 	var screenWidth = window.innerWidth;
 	var formMargin = 10;
 	var formWidth = screenWidth - 2 * formMargin;
-	var formEl = goog.dom.getElement('transactionForm');
+	var formEl = goog.dom.getElement('transaction-form');
 	goog.style.setStyle(formEl, 'margin-left', formMargin + 'px');
 	
 	var selectWidth = (formWidth - formMargin) / 2 - 4;
-	var emailAddressSelect = goog.dom.getElement('emailAddress');
+	var emailAddressSelect = goog.dom.getElement('email-address');
 	goog.style.setStyle(emailAddressSelect, 'width', selectWidth + 'px');
 	
-	var challengeTypeSelect = goog.dom.getElement('challengeType');
+	var challengeTypeSelect = goog.dom.getElement('challenge-type');
 	goog.style.setStyle(challengeTypeSelect, 'width', selectWidth + 'px');
 	goog.style.setStyle(challengeTypeSelect, 'margin-left', formMargin + 'px');
 	
@@ -192,6 +192,6 @@ elevate300.Transaction.prototype.resizeElements_ = function() {
 	for (var i = 0; i < textBoxes.length; i++) {
 		goog.style.setStyle(textBoxes[i], 'width', textBoxWidth);
 	}
-	var gamePlayedSelect = goog.dom.getElement('gamePlayed-select');
+	var gamePlayedSelect = goog.dom.getElement('game-played-select');
 	goog.style.setStyle(gamePlayedSelect, 'width', textBoxWidth);
 };

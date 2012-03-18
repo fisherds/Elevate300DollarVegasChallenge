@@ -1,3 +1,8 @@
+body {
+  background: #111;
+  color: #ddd;
+}
+
 form {
   margin-left: 10px;
 }
@@ -5,7 +10,7 @@ form {
 select {
   width: 45%;
   font-size: 18px;
-  margin-bottom: 5px;
+  margin: 5px 0;
 }
 
 .text-input-label {
@@ -19,7 +24,7 @@ select {
   margin: 5px 0;
 }
 
-#gamePlayed-text {
+#game-played-text {
 	display: none;
 }
 

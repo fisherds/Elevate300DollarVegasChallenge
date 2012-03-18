@@ -22,24 +22,24 @@ handlers:
   static_dir: js
 
 - url: /transaction/*
-  script: transaction.py
+  script: transaction_handler.py
   login: required
 
 - url: /leaderboard/*
-  script: leaderboard.py
+  script: leaderboard_handler.py
   login: required
 
 - url: /individual/*
-  script: individual.py
+  script: individual_handler.py
   login: required
 
 - url: /options/*
-  script: options.py
+  script: options_handler.py
   login: required
 
 - url: /trip/*
-  script: trip.py
+  script: trip_handler.py
   login: required
 
 - url: /
-  script: home.py
+  script: home_handler.py

@@ -16,6 +16,34 @@ indexes:
   - name: when
     direction: desc
 
+- kind: Member
+  properties:
+  - name: email_address
+  - name: created_date_time
+    direction: desc
+
+- kind: Member
+  ancestor: yes
+  properties:
+  - name: created_date_time
+
+- kind: Member
+  ancestor: yes
+  properties:
+  - name: created_date_time
+    direction: desc
+
+- kind: Member
+  ancestor: yes
+  properties:
+  - name: email_address
+
+- kind: Transaction
+  ancestor: yes
+  properties:
+  - name: created_date_time
+    direction: desc
+
 - kind: TripMember
   properties:
   - name: emailAddress

@@ -2,3 +2,10 @@ body {
     background: #111;
     color: #ddd;
 }
+select {
+	width: 150px;
+}
+#current-trip-select {
+}
+#edit-trip-select {
+}

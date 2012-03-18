@@ -13,41 +13,41 @@
 <h1>Trip Editor</h1>
 	<span class="button left" onClick="javascript:window.location.href='/options'">Options</span>
 <form id="trip-form" action="/trip" method="post" accept-charset="utf-8">
-  <input type="text" name="tripKeyId" value="{{tripKeyId}}" style="display: none;">
-  <label id="tripLabel" class="trip-label" for="tripName">Trip name:</label>
+  <input type="text" name="trip_key_id" value="{{trip_key_id}}" style="display: none;">
+  <label id="trip-label" class="trip-label" for="trip_name"><h4>Trip name:</h4></label>
   <center>
-    <input  id="tripName" class="trip-box" type="text" name="tripName" value="{{tripName}}">
+    <input  id="trip-name" class="trip-box" type="text" name="trip_name" value="{{trip_name}}">
   </center>
   <hr>
-  <label class="text-input-label" for="displayName">Name:</label>
-  <input id="creator-display-name" class="text-input-box" type="text" name="displayName" value="{{creatorName}}">
+  <label class="text-input-label" for="creator_display_name">Name:</label>
+  <input id="creator-display-name" class="text-input-box" type="text" name="creator_display_name" value="{{creator_name}}">
   <br>
-  <label class="text-input-label" for="emailAddress">Gmail:</label>
-  <input id="creator-email-address" class="text-input-box" type="text" name="emailAddress" value="{{creatorEmail}}" readonly="readonly">
+  <label class="text-input-label" for="creator_email_address">Gmail:</label>
+  <input id="creator-email-address" class="text-input-box" type="text" name="creator_email_address" value="{{creator_email}}" readonly="readonly">
   <br>
-  <label class="text-input-label" for="phoneNumber">Phone:</label>
-  <input id="creator-phone-number" class="text-input-box" type="text" name="phoneNumber" value="{{creatorPhone}}">
+  <label class="text-input-label" for="creator_phone_number">Phone:</label>
+  <input id="creator-phone-number" class="text-input-box" type="text" name="creator_phone_number" value="{{creator_phone}}">
   <hr>
-  {% for tripMember in tripMembers %}
-    <label class="text-input-label" for="displayName">Name:</label>
-    <input class="text-input-box" type="text" name="displayName" value="{{tripMember.displayName}}">
+  {% for trip_member in trip_members %}
+    <label class="text-input-label" for="display_name">Name:</label>
+    <input class="text-input-box" type="text" name="display_name" value="{{trip_member.display_name}}">
     <br>
-    <label class="text-input-label" for="emailAddress">Gmail:</label>
-    <input class="text-input-box" type="text" name="emailAddress" value="{{tripMember.emailAddress}}">
+    <label class="text-input-label" for="email_address">Gmail:</label>
+    <input class="text-input-box" type="text" name="email_address" value="{{trip_member.email_address}}">
     <br>
-    <label class="text-input-label" for="phoneNumber">Phone:</label>
-    <input class="text-input-box" type="text" name="phoneNumber" value="{{tripMember.phoneNumber}}">
+    <label class="text-input-label" for="phone_number">Phone:</label>
+    <input class="text-input-box" type="text" name="phone_number" value="{{trip_member.phone_number}}">
     <hr>
   {% endfor %}
   <div id="template">
-    <label class="text-input-label" for="displayName">Name:</label>
-    <input class="text-input-box" type="text" name="displayName" value="">
+    <label class="text-input-label" for="display_name">Name:</label>
+    <input class="text-input-box" type="text" name="display_name" value="">
     <br>
-    <label class="text-input-label" for="emailAddress">Gmail:</label>
-    <input class="text-input-box" type="text" name="emailAddress" value="">
+    <label class="text-input-label" for="email_address">Gmail:</label>
+    <input class="text-input-box" type="text" name="email_address" value="">
     <br>
-    <label class="text-input-label" for="phoneNumber">Phone:</label>
-    <input class="text-input-box" type="text" name="phoneNumber" value="">
+    <label class="text-input-label" for="phone_number">Phone:</label>
+    <input class="text-input-box" type="text" name="phone_number" value="">
     <hr>
   </div>
 </form>

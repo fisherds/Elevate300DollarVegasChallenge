@@ -7,13 +7,18 @@ body.home-not-logged-in {
   background-color: #000;
 }
 img.logo {
-	width: 100%;
+	max-width: 100%
 }
 .subtitle {
   font-style: italic;
 }
+.button-focused {
+}
 .welcome {
   font-style: italic;
+}
+.nickname {
+	color: #ccf
 }
 .fine-print {
   font-style: italic;

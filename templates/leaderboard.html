@@ -10,7 +10,6 @@
 	<script src="/js/iphonenav.js"></script>
 </head> 
 
-
 <body onorientationchange="updateOrientation()" orient="landscape">
     <h1 id="pageTitle">Leaderboard</h1>
     <span class="button left" onClick="javascript:window.location.href='/'">Home</span>
@@ -18,16 +17,20 @@
     <a id="homeButton" class="button" href="/leaderboard" style="display: none;">Leaderboard</a>
     <ul id="Leaderboard" title="Leaderboard" style="left: 0%; " selected="true">
 			{% for displayResult in displayResults %}
-			  <li><a href="/individual/#{{displayResult.challengeDescription}}">
+			  <li><a href="/leaderboard/#{{displayResult.challengeId}}">
 					{{displayResult.amountStr}} {{displayResult.challengeDescription}}</a></li>
 			{% endfor %}
     </ul>
 
 		{% for displayResult in displayResults %}
-    <ul id="{{displayResult.challengeDescription}}" title="{{displayResult.challengeDescription}}"
+    <ul id="{{displayResult.challengeId}}" title="{{displayResult.challengeDescription}}"
 			parentname="Leaderboard" style="left: -100%; ">
-				{% for gamblingEvent in displayResult.gamblingEvents %}	
-          <li style="margin-left: 10px">{{gamblingEvent.amount}}<br>{{gamblingEvent.casino}} {{gamblingEvent.gamePlayed}}<br>{{gamblingEvent.notes}}</li>
+				{% for gamblingEvent in displayResult.gamblingEvents %}
+				  <li onClick="javascript:window.location.href='/transaction?id={{gamblingEvent.id}}'" style="margin-left: 10px">
+            {{gamblingEvent.amount}}<br>
+            {{gamblingEvent.casino}} {{gamblingEvent.gamePlayed}}<br>
+            {{gamblingEvent.notes}}
+          </li>
         {% endfor %}
     </ul>
 		{% endfor %}

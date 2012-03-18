@@ -28,19 +28,13 @@
 <h1>Transaction</h1>
   <span class="button left" onClick="javascript:window.location.href='/'">Home</span>
   <span class="button" onClick="javascript:window.location.href='/leaderboard'">Leaderboard</span>
-<form id="transactionForm" action="/transaction" method="post" accept-charset="utf-8">
-	<select name="emailAddress" id="emailAddress">
-    <option value="test@example.com">Test</option>
-    <option value="scott">Scott</option>
-	  <option value="rich">Rich</option>
-		<option value="bob">Bob</option>
-		<option value="roat">Roat</option>
-		<option value="dave">Dave</option>
-		<option value="mikey">Mikey</option>
-		<option value="robert">ROBERT</option>
-		<option value="danfran">Dan Fran</option>
+<form id="transaction-form" action="/transaction" method="post" accept-charset="utf-8">
+	<select name="email_address" id="email-address">
+	  {% for trip_member in trip_members %}
+      <option value="{{trip_member.email_address}}">{{trip_member.display_name}}</option>
+    {% endfor %}
 	</select>
-	<select name="challengeType" id="challengeType">
+	<select name="challenge_type" id="challenge-type">
 	  <option value="0">Practice</option>
 	  <option value="1">$300 Challenge</option>
 	  <option value="2">2nd chance</option>
@@ -53,9 +47,9 @@
 	<label class="text-input-label" for="casino">Casino:</label>
 	<input class="text-input-box" type="text" name="casino" value="" id="casino">
 	<br>
-	<label class="text-input-label" for="gamePlayed">Game:</label>
-	<input class="text-input-box" type="text" name="gamePlayed" value="" id="gamePlayed-text">
-	<select name="gamePlayed" id="gamePlayed-select">
+	<label class="text-input-label" for="game_played">Game:</label>
+	<input class="text-input-box" type="text" name="game_played_text" value="" id="game-played-text">
+	<select name="game_played_select" id="game-played-select">
     <option value="Blackjack">Blackjack</option>
     <option value="Hold'em (no limit)">Hold'em (no limit)</option>
     <option value="Hold'em (limit)">Hold'em (limit)</option>
@@ -68,7 +62,7 @@
   </select>
 	<br>
 	<label class="text-input-label" for="notes" id="notes-label">Notes:</label>
-	<textarea class="text-input-box" name="notes" id="notes"></textarea>
+	<textarea class="text-input-box" name="notes" id="notes">{{notes}}</textarea>
   <br>
   <div>
   <span id="cancel" class="borderImageBtn whiteButton">Cancel</span>

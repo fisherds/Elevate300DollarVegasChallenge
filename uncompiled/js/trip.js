@@ -145,13 +145,16 @@ elevate300.Trip.prototype.resizeElements_ = function() {
 	goog.style.setStyle(formEl, 'margin-left', formMargin + 'px');
 	
 	var textLabelWidth = 60;
-	var textLabels = goog.dom.getElementsByClass('text-input-labels');
+	var textLabels = goog.dom.getElementsByClass('text-input-label');
+	window.console.log("Num boxes = " + textLabels.length);
 	for (var i = 0; i < textLabels.length; i++) {
 		goog.style.setStyle(textLabels[i], 'width', textLabelWidth);
 	}
-	var textBoxWidth = formWidth - textLabelWidth - 8;
+	var textBoxWidth = formWidth - textLabelWidth - 22;
 	var textBoxes = goog.dom.getElementsByClass('text-input-box');
+	window.console.log("Num boxes = " + textBoxes.length);
 	for (var i = 0; i < textBoxes.length; i++) {
+	  window.console.log("Set box width");
 		goog.style.setStyle(textBoxes[i], 'width', textBoxWidth);
 	}
 };

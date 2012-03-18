@@ -28,7 +28,11 @@
     <ul id="{{displayResult.challengeDescription}}" title="{{displayResult.challengeDescription}}"
 			parentname="Individual" style="left: -100%; ">
 				{% for gamblingEvent in displayResult.gamblingEvents %}	
-        <li style="margin-left: 10px">{{gamblingEvent.amount}}<br>{{gamblingEvent.casino}} {{gamblingEvent.gamePlayed}}<br>{{gamblingEvent.notes}}</li>
+        <li onClick="javascript:window.location.href='/transaction?id={{gamblingEvent.id}}'" style="margin-left: 10px">
+          {{gamblingEvent.amount}}<br>
+          Challenge Type: {{gamblingEvent.challengeType}}<br>
+          {{gamblingEvent.gamePlayed}} at {{gamblingEvent.casino}}<br>
+          {{gamblingEvent.notes}}</li>
         {% endfor %}
     </ul>
 		{% endfor %}
