@@ -27,3 +27,85 @@ img.logo {
 	
 .trip-name {
 }
+   
+.outer-box {
+  position: absolute; /* Out of the flow */
+  border-radius: 20px;
+  top: 210px;
+  left: 38%;
+  width: 100px;
+  height: 100px;
+  background: #222;
+  -webkit-transition: all 1300ms ease-in-out 300ms;
+}
+
+.outer-box .inner-box {
+  position: absolute;
+  border-radius: 20px;
+  width: 100px;
+  height: 100px;
+  -webkit-transition: all 1000ms ease-in-out 600ms;
+}
+  
+.outer-box .inner-box:nth-child(1) {
+  -webkit-transform-origin: left top;
+  background: rgba(0, 255, 0, 0.6);
+}
+
+.outer-box .inner-box:nth-child(2) {
+  -webkit-transform-origin: left bottom;
+  background: rgba(200, 200, 0, 0.6);          
+}
+
+.outer-box .inner-box:nth-child(3) {
+  -webkit-transform-origin: right top;
+  background: rgba(255, 0, 0, 0.6);
+}
+
+.outer-box .inner-box:nth-child(4) {
+  -webkit-transform-origin: right bottom;
+  background: rgba(0, 100, 255, 0.6);
+}
+/* Done in js now.
+.outer-box:hover .inner-box {
+  -webkit-transform: rotate(90deg);
+  -webkit-transition: all 1000ms ease-in-out 600ms;
+}       
+
+.outer-box:hover {
+  -webkit-transform: rotate(360deg);
+}
+
+.outer-box:hover #leaderboard {
+  left: 0px;
+  top: -72px;
+  opacity: 1;
+}
+
+.outer-box:hover #individual {
+  left: -100px;
+  top: 31px;
+  opacity: 1;
+}
+
+.outer-box:hover #transaction {
+  left: 100px;
+  top: 31px;
+  opacity: 1;
+}
+.outer-box:hover #options {
+  left: 0px;
+  top: 130px;
+  opacity: 1;
+}
+*/
+.inner-box-text {
+	position: absolute;
+	opacity: 0;
+	top: 30px;
+  width: 100px;
+  height: 100px;
+	text-align: center;
+  font-weight: bold;
+  -webkit-transition: all 1000ms ease-in-out 1300ms;
+}

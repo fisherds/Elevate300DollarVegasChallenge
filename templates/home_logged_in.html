@@ -7,21 +7,29 @@
   <link rel="stylesheet" type="text/css" href="style/common.css">
   <link rel="stylesheet" type="text/css" href="style/home.css">
   <link rel="stylesheet" type="text/css" href="style/samples.css">
+  <script src="/js/home_logged_in.js"></script>
 </head>
 <body class="home-logged-in">
 <h1>$300 Challenge</h1>
     <span class="button left" onClick="javascript:window.location.href='{{logout_link}}'">Log out</span>
-    <span class="button" onClick="javascript:window.location.href='/info.html'">Info</span>
+    <span class="button right" onClick="javascript:window.location.href='/info.html'">Info</span>
 <center>
 <div id="welcome">Hello <span class="nickname">{{name}}</span>, your current trip is...</div>
 <div id="trip-name">{{current_trip_name}}</div>
-<br>
-<a href="/transaction"class="borderImageBtn blueButton">Add Transaction</a>
-<br>
-<a href="/leaderboard" class="borderImageBtn blueButton">Leaderboard</a>
-<br>
-<a href="/individual" class="borderImageBtn blueButton">Individual</a>
-<br>
-<a href="/options" class="borderImageBtn blueButton">Trip Options</a>
+
 </center>
-</body>
+<div class="outer-box">
+
+  <div class="inner-box"></div>
+  <div class="inner-box"></div>
+  <div class="inner-box"></div>
+  <div class="inner-box"></div>
+    <div id="leaderboard" class="inner-box-text">$300<br>Challenge</div>
+    <div id="individual" class="inner-box-text">Individual<br>Standings</div>
+    <div id="transaction" class="inner-box-text">Add<br>Transaction</div>
+    <div id="options" class="inner-box-text">Trip<br>Options</div>
+</div>
+<script>
+  new elevate300.HomeLoggedIn();
+</script>
+</body></html>

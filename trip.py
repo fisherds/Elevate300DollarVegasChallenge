@@ -28,7 +28,8 @@ class Trip(db.Model):
 	def put(self):
 		db.Model.put(self)
 		self.cache_set()
-	
+		
+	# Transaction CRUD
 	def get_all_transactions(self):
 		tripTransactions = memcache.get(str(self.key().id()) + "_alltransactions")
 		if tripTransactions:
@@ -64,12 +65,28 @@ class Trip(db.Model):
 		memcache.delete(str(self.key().id()) + "_alltransactions") # Remove the trip's _alltransactions memcache
 		return newTransaction
 	
-	def delete_transaction(self, transaction_key):
-		pass
+	def delete_transaction(self, transaction_id):
+		theTransactionKey = db.Key.from_path('Trip', self.key().id(), 'Transaction', transaction_id)
+		db.delete(theTransactionKey)
+		logging.info('Datastore: Deleted transaction with key' + str(theTransactionKey))
+		logging.info('Memcache: For now delete the _alltransactions memcache value (FIX LATER)')
+		memcache.delete(str(self.key().id()) + "_alltransactions") # Remove the trip's _alltransactions memcache
 
-	def update_transaction(self, transaction_key):
-		pass
+	def update_transaction(self, transaction_id, email_address, challenge_type, amount, casino, game_played, notes):
+		theTransactionKey = db.Key.from_path('Trip', self.key().id(), 'Transaction', transaction_id)
+		theTransaction = db.get(theTransactionKey)
+		theTransaction.email_address = email_address
+		theTransaction.challenge_type = challenge_type
+		theTransaction.amount = amount
+		theTransaction.casino = casino
+		theTransaction.game_played = game_played
+		theTransaction.notes = notes
+		theTransaction.put()
+		logging.info('Datastore: Updated transaction with key' + str(theTransaction.key()))
+		logging.info('Memcache: For now delete the _alltransactions memcache value (FIX LATER)')
+		memcache.delete(str(self.key().id()) + "_alltransactions") # Remove the trip's _alltransactions memcache
 	
+	# Members CRUD
 	def get_all_members(self):
 		tripMembers = memcache.get(str(self.key().id()) + "_allmembers")
 		if tripMembers:
@@ -106,7 +123,7 @@ class Trip(db.Model):
 		logging.info('Memcache: For now delete the _allmembers memcache value (FIX LATER)')
 		memcache.delete(str(self.key().id()) + "_allmembers")
 		return newMember
-	
+		
 	def delete_member(self, standardized_email_address):
 		pass
 
@@ -118,8 +135,9 @@ class Trip(db.Model):
 		for aMember in query:
 			aMember.delete()
 		memcache.delete(str(self.key().id()) + "_allmembers")
+		# TODO: Delete the memcache values for each member.
 
-	def update_member(self, standardized_email_address):
+	def update_member(self, email_address=None, display_name=None, phone_number=''):
 		pass
 	
 	def is_a_member(self, email_address=None):
@@ -132,6 +150,48 @@ class Trip(db.Model):
 				return True
 		return False
 
+	# AddOn CRUD
+	def get_all_addons(self):
+		tripAddOns = memcache.get(str(self.key().id()) + "_alladdons")
+		if tripAddOns:
+			logging.info('Memcache: Retrieved all add ons from trip id ' + str(self.key().id()))
+		else:
+			logging.info('Datastore: Retrieve all add ons from trip id ' + str(self.key().id()))
+			tripAddOns = []
+			query = db.Query(transaction.AddOn)
+			query.ancestor(self.key())
+			query.order('created_date_time')
+			# Could use the fetch command but that limits the max number of add ons
+			# Using this slower brute force method for now
+			# A faster solution would be to return the query and let the user of the query update the memcache
+			# Probably this method is not actually that slow though 2 milliseconds to run I'd guess
+			for anAddOn in query:
+				tripAddOns.append(anAddOn)
+			# Save the brute force result in memcache to make it faster next time.
+			memcache.set(str(self.key().id()) + "_alladdons", tripAddOns)
+		return tripAddOns
+		
+	def create_add_on(self, email_address=None, challenge_type=0, used_add_on=False):
+		if not email_address:
+			email_address = users.get_current_user().email()
+		standardized_email_address = member.standardize_email_address(email_address)
+		keyName = standardized_email_address + '_type_' + str(challenge_type)
+		newAddOn = transaction.AddOn(key_name=keyName,
+				parent = self.key(),
+				email_address = standardized_email_address,
+				challenge_type = challenge_type,
+				used_add_on = used_add_on)
+		newAddOn.put()
+		logging.info('Memcache: For now delete the _alladdons memcache value (FIX LATER)')
+		memcache.delete(str(self.key().id()) + "_alladdons")
+		return newAddOn
+	
+	def delete_add_on(self, email_address=None, challenge_type=0):
+		pass
+
+	def update_add_on(self, email_address=None, challenge_type=0, used_add_on=False):
+		pass
+		
 # Always use this mechanism to get a trip when you have the trip id.
 # Will return None if trip id does not exist.
 def get_trip(trip_id):

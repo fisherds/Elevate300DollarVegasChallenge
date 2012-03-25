@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="style/samples.css">
   <link rel="stylesheet" type="text/css" href="style/transaction.css">
 
-<!-- These links will work for uncompiled development (they will fail during the the compiled product)
+<!-- These links worked for uncompiled development (they will fail during the the compiled product)
   <link rel="stylesheet" type="text/css" href="../style/common.css">
   <link rel="stylesheet" type="text/css" href="../style/transaction.css">
   <link rel="stylesheet" type="text/css" href="../style/samples.css">
@@ -27,65 +27,63 @@
 <body>
 <h1>Transaction</h1>
   <span class="button left" onClick="javascript:window.location.href='/'">Home</span>
-  <span class="button" onClick="javascript:window.location.href='/leaderboard'">Leaderboard</span>
+  <span class="button right" onClick="javascript:window.location.href='/leaderboard'">Leaderboard</span>
 <form id="transaction-form" action="/transaction" method="post" accept-charset="utf-8">
-	<select name="email_address" id="email-address">
-	  {% for trip_member in trip_members %}
-      <option value="{{trip_member.email_address}}">{{trip_member.display_name}}</option>
+  <input type="text" name="transaction_id" value="{{transaction_id}}" id="transaction-id">
+  <select name="email_address" id="email-address">  
+    {% for trip_member in trip_member_options %}
+      {% if trip_member.email_address == select_email %}
+        <option value="{{trip_member.email_address}}" selected="selected">{{trip_member.display_name}}</option>
+      {% else %}
+        <option value="{{trip_member.email_address}}">{{trip_member.display_name}}</option>
+      {% endif %}
     {% endfor %}
-	</select>
-	<select name="challenge_type" id="challenge-type">
-	  <option value="0">Practice</option>
-	  <option value="1">$300 Challenge</option>
-	  <option value="2">2nd chance</option>
-	  <option value="3">Individual only</option>
-	</select>
-	<br>
-	<label class="text-input-label" for="amount">Amount:</label>
-	<input class="text-input-box" type="text" name="amount" value="" id="amount">
-	<br>
-	<label class="text-input-label" for="casino">Casino:</label>
-	<input class="text-input-box" type="text" name="casino" value="" id="casino">
-	<br>
-	<label class="text-input-label" for="game_played">Game:</label>
-	<input class="text-input-box" type="text" name="game_played_text" value="" id="game-played-text">
-	<select name="game_played_select" id="game-played-select">
-    <option value="Blackjack">Blackjack</option>
-    <option value="Hold'em (no limit)">Hold'em (no limit)</option>
-    <option value="Hold'em (limit)">Hold'em (limit)</option>
-    <option value="Hold'em (tournament)">Hold'em (tournament)</option>
-    <option value="Roulette">Roulette</option>
-    <option value="Craps">Craps</option>
-    <option value="Slots">Slots</option>
-    <option value="Pai gow poker">Pai gow poker</option>
-    <option value="Other">Other</option>
   </select>
-	<br>
-	<label class="text-input-label" for="notes" id="notes-label">Notes:</label>
-	<textarea class="text-input-box" name="notes" id="notes">{{notes}}</textarea>
+  <select name="challenge_type" id="challenge-type">
+    {% for challenge_type in challenge_type_options %}
+      {% if forloop.counter0 == select_challenge_type %}
+          <option value="{{forloop.counter0}}" selected="selected">{{challenge_type}}</option>
+      {% else %}
+        <option value="{{forloop.counter0}}">{{challenge_type}}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+
+  <br>
+  <label class="text-input-label" for="amount">Amount:</label>
+  <input class="text-input-box" type="text" name="amount" value="{{amount_value}}" id="amount">
+  <br>
+  <label class="text-input-label" for="casino">Casino:</label>
+  <input class="text-input-box" type="text" name="casino_text" value="{{select_casino}}" id="casino-text" disabled="disabled">
+  <select name="casino_select" id="casino-select">
+    <option value="Other">Other</option> 
+  </select>
+  <br>
+  <label class="text-input-label" for="game_played">Game:</label>
+  <input class="text-input-box" type="text" name="game_played_text" value="{{game_played_value}}" id="game-played-text" disabled="disabled">
+  <select name="game_played_select" id="game-played-select">
+    {% for game_played_option in game_played_options %}
+      {% if game_played_option == select_game_played %}
+          <option value="{{game_played_option}}" selected="selected">{{game_played_option}}</option>
+      {% else %}
+        <option value="{{game_played_option}}">{{game_played_option}}</option>
+      {% endif %}
+    {% endfor %}
+    <option value="Other">Other</option> 
+  </select>
+  <br>
+  <label class="text-input-label" for="notes" id="notes-label">Notes:</label>
+  <textarea class="text-input-box" name="notes" id="notes">{{notes}}</textarea>
   <br>
   <div>
-  <span id="cancel" class="borderImageBtn whiteButton">Cancel</span>
-  <span id="submit" class="borderImageBtn blueButton">Submit</span>
+    <span id="cancel" class="borderImageBtn whiteButton">Cancel</span>
+    <span id="submit" class="borderImageBtn blueButton">Submit</span>
   </div>
-<!--     <input class="borderImageBtn blueButton" type="submit" value="Add Transaction">  -->
+  <input type="text" name="is_add_on" value="False" id="is-add-on" disabled="disabled">
+  <input type="text" name="is_delete" value="False" id="is-delete" disabled="disabled">
+  <div id="extra-button" class="borderImageBtn whiteButton">Use Add On</div>
 </form>
-<!-- 
-<hr>
-<h3>Debug info:</h3>
-{% for gamblingTransaction in gamblingTransactions %}
-<div style="margin-left: 10px">
-  {{gamblingTransaction.emailAddress}}
-	{{gamblingTransaction.challengeType}}
-	{{gamblingTransaction.amount}}
-	{{gamblingTransaction.casino}}
-	{{gamblingTransaction.gamePlayed}}
-	{{gamblingTransaction.notes}}
-</div>
-{% endfor %}
-<hr>
- -->
 <script>
-  new elevate300.Transaction();
+  new elevate300.Transaction("{{casino_options}}", "{{select_casino}}", "{{add_ons_used}}");
 </script>
 </body>

@@ -7,6 +7,10 @@ form {
   margin-left: 10px;
 }
 
+#transaction-id {
+	display: none;
+}
+
 select {
   width: 45%;
   font-size: 18px;
@@ -24,6 +28,10 @@ select {
   margin: 5px 0;
 }
 
+#casino-text {
+  display: none;
+}
+
 #game-played-text {
 	display: none;
 }
@@ -39,16 +47,31 @@ select {
 
 #cancel {
   display: inline-block;
-  margin-top: 5px;
-  width: 80px;
+  width: 120px;
+  font-size: 22px;
+}
+
+#extra-button {
+  position: absolute;
+  display: inline-block;
+  left: 40%;
+  width: 120px;
+  margin-top: 4px;
   font-size: 18px;
 }
 
 #submit {
-	position: absolute;
+	float: right;
   display: inline-block;
-	margin-top: 5px;
-	width: 130px;
-	right: 14px;
-  font-size: 18px;
+	width: 120px;
+	margin-right: 14px;
+  font-size: 22px;
+}
+
+#is-add-on {
+  display: none;
+}
+
+#is-delete {
+  display: none;
 }

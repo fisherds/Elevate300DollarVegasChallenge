@@ -24,8 +24,16 @@
 	border-left: 10px;
 	border-right: 10px;
 	color: black;
-	text-shadow: #fff 0px 1px 1px;
+	/*text-shadow: #fff 0px 1px 1px;*/
 	-webkit-border-image:url("../images/whiteButton.png") 0 14 0 14;
+}
+.redButton
+{
+  border-left: 10px;
+  border-right: 10px;
+  color: white;
+  /*text-shadow: #fff 0px 1px 1px;*/
+  -webkit-border-image:url("../images/redButton.png") 0 14 0 14;
 }
 .blackButton
 {

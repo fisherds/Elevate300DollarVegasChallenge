@@ -24,17 +24,15 @@ class IndividualHandler(webapp.RequestHandler):
 				playerResult['total'] = 0
 				thisMember = member.get_member_for_trip(currentTrip.key(), aTransaction.email_address);
 				playerResult['name'] = thisMember.display_name
+				playerResult['email'] = thisMember.email_address
 				playerResult['gamblingEvents'] = []
 			else:
 				playerResult = playerResults[key]
 
 			# Add this transaction to the gamblingEvents
 			gamblingEvent = {}
-			
 			gamblingEvent['challengeType'] = ''
-			if aTransaction.challenge_type == transaction.CHALLENGE_TYPE_PRACTICE:
-				gamblingEvent['challengeType'] = ' Practice'
-			elif aTransaction.challenge_type == transaction.CHALLENGE_TYPE_300_DOLLAR_CHALLENGE:
+			if aTransaction.challenge_type == transaction.CHALLENGE_TYPE_300_DOLLAR_CHALLENGE:
 				gamblingEvent['challengeType'] = '$300 Challenge'
 			elif aTransaction.challenge_type == transaction.CHALLENGE_TYPE_SECOND_CHANCE:
 				gamblingEvent['challengeType'] = '2nd Chance'
@@ -45,7 +43,8 @@ class IndividualHandler(webapp.RequestHandler):
 				amountStr = "-$%0.2f" % + abs(aTransaction.amount)
 			else:
 				amountStr = "+$%0.2f" % aTransaction.amount
-			gamblingEvent['amount'] = amountStr
+			gamblingEvent['amountStr'] = amountStr.replace('.00', '')  # Remove trailing zeros if integer	
+			gamblingEvent['amount'] = aTransaction.amount
 			gamblingEvent['casino'] = aTransaction.casino
 			gamblingEvent['gamePlayed'] = aTransaction.game_played
 			gamblingEvent['notes'] = aTransaction.notes
@@ -69,12 +68,14 @@ class IndividualHandler(webapp.RequestHandler):
 		displayResults = []
 		for aKey in sortedKeys:
 			displayResult = {}
-			displayResult['challengeDescription'] = playerResults[aKey]['name']
+			displayResult['name'] = playerResults[aKey]['name']
+			displayResult['id'] = playerResults[aKey]['email']
+			displayResult['total'] = playerResults[aKey]['total']
 			if (playerResults[aKey]['total'] < 0):
-				amountStr = "-$%0.2f" % + abs(playerResults[aKey]['total'])
+				totalStr = "-$%0.2f" % + abs(playerResults[aKey]['total'])
 			else:
-				amountStr = "+$%0.2f" % playerResults[aKey]['total']
-			displayResult['amountStr'] = amountStr
+				totalStr = "+$%0.2f" % playerResults[aKey]['total']
+			displayResult['totalStr'] = totalStr.replace('.00', '')  # Remove trailing zeros if integer
 			displayResult['gamblingEvents'] = playerResults[aKey]['gamblingEvents']
 			displayResults.append(displayResult)
 

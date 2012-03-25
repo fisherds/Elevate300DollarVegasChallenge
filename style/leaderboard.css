@@ -1,0 +1,72 @@
+.fill-bar {
+	position: absolute;
+	/* Done in js now.
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    color-stop(0.5, #8EF01F),
+    color-stop(1, #DDD));
+  */
+	width: 0;
+  /*height: 53px;*/
+  height: 10px;
+	cursor: pointer;
+	/* Done in js now.
+	 -webkit-transition: width 1700ms ease-in-out; */
+  z-index:-1;
+}
+
+li:hover .fill-bar {
+  width: 30%;
+}
+
+.total-value {
+	display: none;
+	-webkit-transform: translateZ(0);
+}
+
+.amount-value {
+  display: none;
+}
+
+.content-pane {
+  display: inline-block;
+}
+
+.top-content-pane {
+}
+
+.bottom-content-pane {
+	color: #7388a5;
+  font-size: 12px;
+}
+
+.amount-pane {
+  display: inline-block;
+  right: 30px;
+  position: absolute;
+  text-align: right;
+  vertical-align: top;
+  margin: 4px 0 0 0;
+  font-size: 24px;
+}
+
+.amount-pane.total-pane {
+}
+
+.individual-row-spacer {
+  display: inline-block;
+  height: 22px;
+}
+
+.individual-content-pane {
+  display: inline-block;
+}
+
+.individual-amount-pane {
+  display: inline-block;
+  right: 30px;
+  position: absolute;
+  text-align: right;
+}

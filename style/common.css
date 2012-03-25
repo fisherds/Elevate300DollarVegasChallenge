@@ -46,7 +46,6 @@ body > h1 {
     border-width: 0 8px 0 8px;
     padding: 0;
     height: 28px;
-    width: 150px;
     line-height: 28px;
     font-size: 12px;
     font-weight: bold;
@@ -54,13 +53,19 @@ body > h1 {
     text-shadow: rgba(0, 0, 0, 0.6) 0px -1px 0;
     text-decoration: none;
     background: none;
-  text-align: right;
 }
 
 .button.left {
   left: 6px;
+  width: 150px;
   text-align: left;
 }
+
+.button.right {
+  width: 150px;
+  text-align: right;
+}
+
 
 
 

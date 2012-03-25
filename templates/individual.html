@@ -6,7 +6,8 @@
 	<link rel="apple-touch-icon" href="/images/blueButton.png">
 	<link rel="stylesheet" type="text/css" href="style/iphonenav.css">
 	<link rel="stylesheet" type="text/css" href="style/samples.css">
-	<link rel="stylesheet" type="text/css" href="style/common.css">
+  <link rel="stylesheet" type="text/css" href="style/common.css">
+  <link rel="stylesheet" type="text/css" href="style/leaderboard.css">
 	<script src="/js/iphonenav.js"></script>
 	<script src="/js/individual.js"></script>
 </head> 
@@ -15,24 +16,43 @@
 <body onorientationchange="updateOrientation()" orient="landscape">
     <h1 id="pageTitle">Individual</h1>
     <span class="button left" onClick="javascript:window.location.href='/'">Home</span>
-    <span class="button" onClick="javascript:window.location.href='/transaction'">Add Trans</span>
-    <a id="homeButton" class="button" href="./#Individual" style="display: none;">Individual</a>
+    <span class="button right" onClick="javascript:window.location.href='/transaction'">Add Trans</span>
+    <a id="homeButton" class="button" href="./#Individual" style="display: none;">Back</a>
     <ul id="Individual" title="Individual" style="left: 0%; " selected="true">
 			{% for displayResult in displayResults %}
-			  <li><a href="/individual/#{{displayResult.challengeDescription}}">
-					{{displayResult.amountStr}} {{displayResult.challengeDescription}}</a></li>
+			  <li>
+			  <a href="/individual/#{{displayResult.id}}">
+			  <div class="total-value">{{displayResult.total}}</div>
+			  <div class="individual-content-pane">
+            {{displayResult.name}}
+        </div>
+        <div class="individual-amount-pane">
+          {{displayResult.totalStr}}
+        </div>
+			  </a></li>
 			{% endfor %}
     </ul>
 
 		{% for displayResult in displayResults %}
-    <ul id="{{displayResult.challengeDescription}}" title="{{displayResult.challengeDescription}}"
+    <ul id="{{displayResult.id}}" title="{{displayResult.name}}"
 			parentname="Individual" style="left: -100%; ">
-				{% for gamblingEvent in displayResult.gamblingEvents %}	
-        <li onClick="javascript:window.location.href='/transaction?id={{gamblingEvent.id}}'" style="margin-left: 10px">
-          {{gamblingEvent.amount}}<br>
-          Challenge Type: {{gamblingEvent.challengeType}}<br>
-          {{gamblingEvent.gamePlayed}} at {{gamblingEvent.casino}}<br>
-          {{gamblingEvent.notes}}</li>
+				{% for gamblingEvent in displayResult.gamblingEvents %}
+        <li onClick="javascript:window.location.href='/transaction?id={{gamblingEvent.id}}'">
+        <a style="padding: 4px 8px;">
+          <div class="amount-value">{{gamblingEvent.amount}}</div>
+	        <div class="content-pane">
+		        <div class="top-content-pane">
+		          {{gamblingEvent.gamePlayed}}
+		        </div>
+		        <div class="bottom-content-pane">
+		          {{gamblingEvent.casino}}
+		        </div>
+	        </div>
+	        <div class="amount-pane">
+	          {{gamblingEvent.amountStr}}
+	        </div>
+        </a>
+        </li>
         {% endfor %}
     </ul>
 		{% endfor %}

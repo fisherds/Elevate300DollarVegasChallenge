@@ -26,6 +26,7 @@ class LeaderboardHandler(webapp.RequestHandler):
 				playerResult['total'] = 150
 				thisMember = member.get_member_for_trip(currentTrip.key(), aTransaction.email_address);
 				playerResult['name'] = thisMember.display_name
+				playerResult['email'] = thisMember.email_address
 				playerResult['challengeType'] = aTransaction.challenge_type
 				playerResult['gamblingEvents'] = []
 			else:
@@ -33,11 +34,12 @@ class LeaderboardHandler(webapp.RequestHandler):
 			
 			# Each playerResult has a list of gamblingEvents, add this transaction to the gamblingEvents list
 			gamblingEvent = {}
+			gamblingEvent['amount'] = aTransaction.amount
 			if (aTransaction.amount < 0):
 				amountStr = "-$%0.2f" % + abs(aTransaction.amount)
 			else:
 				amountStr = "+$%0.2f" % aTransaction.amount
-			gamblingEvent['amount'] = amountStr
+			gamblingEvent['amountStr'] = amountStr.replace('.00', '')  # Remove trailing zeros if integer
 			gamblingEvent['casino'] = aTransaction.casino
 			gamblingEvent['gamePlayed'] = aTransaction.game_played
 			gamblingEvent['notes'] = aTransaction.notes
@@ -45,10 +47,6 @@ class LeaderboardHandler(webapp.RequestHandler):
 			playerResult['gamblingEvents'].append(gamblingEvent)
 			
 			playerResult['total'] = playerResult['total'] + aTransaction.amount
-			if playerResult['total'] > 300:
-				playerResult['total'] = 300
-			if playerResult['total'] < 0:
-				playerResult['total'] = 0
 			
 			playerResults[key] = playerResult
 		
@@ -61,7 +59,20 @@ class LeaderboardHandler(webapp.RequestHandler):
 		#                        {'amount':  5.5, 'casino': 'MGM',   'gamePlayed': "Texas Hold'em", 'notes': 'blah blah', 'id': 511}, ... ]},
 		#   ... }
 		
-		# TODO: Next we need to lookup and add the Add-Ons
+		# TODO: Change the total and add the usedAddOn boolean
+		
+		allAddOns = currentTrip.get_all_addons()
+		for anAddOn in allAddOns:
+			if anAddOn.used_add_on:
+				standardized_email_address = member.standardize_email_address(anAddOn.email_address)
+				# Find the player key for this Add on
+				playerKeyForAddOn = standardized_email_address + str(anAddOn.challenge_type)
+				if playerKeyForAddOn in playerResults:
+					playerResults[playerKeyForAddOn]['usedAddOn'] = True;
+					playerResults[playerKeyForAddOn]['total'] = playerResults[playerKeyForAddOn]['total'] + 50
+				
+		
+		# Next we need to lookup and add the Add-Ons
 		#   Change the total and add a field to the dictionary
 		# {'fisherds@gmail.com1':
 		#    {'total': 215.5,
@@ -81,22 +92,25 @@ class LeaderboardHandler(webapp.RequestHandler):
 		displayResults = []
 		for aKey in sortedKeys:
 			displayResult = {}
-			displayResult['challengeId'] = playerResults[aKey]['name'] + '_type_' + str(playerResults[aKey]['challengeType'])
+			if playerResults[aKey]['total'] > 300:
+				playerResults[aKey]['total'] = 300
+			if playerResults[aKey]['total'] < 0:
+				playerResults[aKey]['total'] = 0
+			displayResult['challengeId'] = playerResults[aKey]['email'] + '_type_' + str(playerResults[aKey]['challengeType'])
 			# Prepare the text that will be displayed at the top level
 			challengeText = ''
-			if playerResults[aKey]['challengeType'] == transaction.CHALLENGE_TYPE_PRACTICE:
-				challengeText = ' Practice'
+			if playerResults[aKey]['challengeType'] == transaction.CHALLENGE_TYPE_300_DOLLAR_CHALLENGE:
+				challengeText = '$300 Challenge'
 			elif playerResults[aKey]['challengeType'] == transaction.CHALLENGE_TYPE_SECOND_CHANCE:
-				challengeText = ' 2nd Chance'
+				challengeText = '2nd Chance'
 			addOnText = ''
-			if hasattr(playerResults[aKey], 'userAddOn') and playerResults[aKey]['usedAddOn']:
+			if 'usedAddOn' in playerResults[aKey] and playerResults[aKey]['usedAddOn']:
 				addOnText = '*'
-			displayResult['challengeDescription'] = playerResults[aKey]['name'] + addOnText + challengeText
-			if (playerResults[aKey]['total'] < 0):
-				amountStr = "-$%0.2f" % + abs(playerResults[aKey]['total'])
-			else:
-				amountStr = "$%0.2f" % playerResults[aKey]['total']
-			displayResult['amountStr'] = amountStr
+			displayResult['name'] = playerResults[aKey]['name'] + addOnText
+			displayResult['challengeType'] = challengeText
+			displayResult['total'] = playerResults[aKey]['total']
+			totalStr = "$%0.2f" % playerResults[aKey]['total']
+			displayResult['totalStr'] = totalStr.replace('.00', '')  # Remove trailing zeros if integer
 			displayResult['gamblingEvents'] = playerResults[aKey]['gamblingEvents']
 			displayResults.append(displayResult)
 

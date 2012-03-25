@@ -126,7 +126,7 @@
     </target>
 
 	<target name="trip-compiled"
-        description="generates transaction.js">
+        description="generates trip.js">
         <closure-compile
           inputfile="${basedir}/js/trip.js"
           outputfile="${build.dir}/trip.js"
@@ -142,25 +142,62 @@
           </extraflags>
         </closure-compile>
       </target>
-	
-	 <target name="options-compiled"
-	        description="generates transaction.js">
-	        <closure-compile
-	          inputfile="${basedir}/js/options.js"
-	          outputfile="${build.dir}/options.js"
-	          compilationlevel="SIMPLE_OPTIMIZATIONS" >
-	          <extrapaths>
-	            <arg line='-p "${basedir}"' />
-	          </extrapaths>
-	          <extraflags>
-	            <arg line='-f "--output_wrapper=${outputwrapper}"' />
-	            <!--<arg line='-f "XXformatting=PRETTY_PRINT"' /> -->
-	            <arg line='-f "--warning_level=VERBOSE"' />
-	            <!--arg line='-f "XXjscomp_error=checkTypes"' -->
-	          </extraflags>
-	        </closure-compile>
-	      </target>
-	
+  
+   <target name="options-compiled"
+          description="generates options.js">
+          <closure-compile
+            inputfile="${basedir}/js/options.js"
+            outputfile="${build.dir}/options.js"
+            compilationlevel="SIMPLE_OPTIMIZATIONS" >
+            <extrapaths>
+              <arg line='-p "${basedir}"' />
+            </extrapaths>
+            <extraflags>
+              <arg line='-f "--output_wrapper=${outputwrapper}"' />
+              <!--<arg line='-f "XXformatting=PRETTY_PRINT"' /> -->
+              <arg line='-f "--warning_level=VERBOSE"' />
+              <!--arg line='-f "XXjscomp_error=checkTypes"' -->
+            </extraflags>
+          </closure-compile>
+        </target>
+  
+   <target name="leaderboard-compiled"
+          description="generates leaderboard.js">
+          <closure-compile
+            inputfile="${basedir}/js/leaderboard.js"
+            outputfile="${build.dir}/leaderboard.js"
+            compilationlevel="SIMPLE_OPTIMIZATIONS" >
+            <extrapaths>
+              <arg line='-p "${basedir}"' />
+            </extrapaths>
+            <extraflags>
+              <arg line='-f "--output_wrapper=${outputwrapper}"' />
+              <!--<arg line='-f "XXformatting=PRETTY_PRINT"' /> -->
+              <arg line='-f "--warning_level=VERBOSE"' />
+              <!--arg line='-f "XXjscomp_error=checkTypes"' -->
+            </extraflags>
+          </closure-compile>
+        </target>
+
+  
+   <target name="home_logged_in-compiled"
+          description="generates home_logged_in.js">
+          <closure-compile
+            inputfile="${basedir}/js/home_logged_in.js"
+            outputfile="${build.dir}/home_logged_in.js"
+            compilationlevel="SIMPLE_OPTIMIZATIONS" >
+            <extrapaths>
+              <arg line='-p "${basedir}"' />
+            </extrapaths>
+            <extraflags>
+              <arg line='-f "--output_wrapper=${outputwrapper}"' />
+              <!--<arg line='-f "XXformatting=PRETTY_PRINT"' /> -->
+              <arg line='-f "--warning_level=VERBOSE"' />
+              <!--arg line='-f "XXjscomp_error=checkTypes"' -->
+            </extraflags>
+          </closure-compile>
+        </target>
+
 	<target name="build" depends="transaction-compiled, trip-compiled, options-compiled" />
     
 </project>

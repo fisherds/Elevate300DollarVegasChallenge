@@ -10,6 +10,11 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: AddOn
+  ancestor: yes
+  properties:
+  - name: created_date_time
+
 - kind: GamblingTransaction
   ancestor: yes
   properties:
@@ -39,6 +44,12 @@ indexes:
   - name: email_address
 
 - kind: Transaction
+  ancestor: yes
+  properties:
+  - name: created_date_time
+    direction: desc
+
+- kind: TripEvent
   ancestor: yes
   properties:
   - name: created_date_time
