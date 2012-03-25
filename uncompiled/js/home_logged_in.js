@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Controller for the HomeLoggedIn page.  .
+ * @fileoverview Controller for the Home page when logged in.
  *   
  * @author fisherds@gmail.com (Dave Fisher)
  */

@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Controller for the transaction page.  .
+ * @fileoverview Controller for the transaction page.
  *   
  * @author fisherds@gmail.com (Dave Fisher)
  */

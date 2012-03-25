@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Controller for the Trip page.  .
+ * @fileoverview Controller for the Trip page. 
  *   
  * @author fisherds@gmail.com (Dave Fisher)
  */

@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Controller for the Options page.  .
+ * @fileoverview Controller for the Options page.
  *   
  * @author fisherds@gmail.com (Dave Fisher)
  */

@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview 
+ * @fileoverview Finds the distances to the different casinos. 
  *   
  * @author fisherds@gmail.com (Dave Fisher)
  */

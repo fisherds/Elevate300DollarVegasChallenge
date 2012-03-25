@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Controller for the Leaderboard page.  .
+ * @fileoverview Controller for the Leaderboard page.
  *   
  * @author fisherds@gmail.com (Dave Fisher)
  */
