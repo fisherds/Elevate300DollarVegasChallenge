@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
  
-<project name="Rose-Hulman Grid Extension" default="build">
+<!-- Update the project name and folder locations for this project. -->
+	<project name="Elevate 300" default="build">
 
-<!-- Defining variables for file locations -->
-	
     <!-- My Closure folder location from this directory -->
     <property name="closure.dir" value="${basedir}/../../../closure" />
 
+		<!-- Recommended folder structure (that you hopefully used when doing SVN checkouts)
+		   closure (the closure.dir path found above) should have the sub folders:
+		    - closure-compiler  (svn checkout of http://closure-compiler.googlecode.com/svn/trunk/)
+		    - closure-library   (svn checkout of http://closure-library.googlecode.com/svn/trunk/)
+		    - closure-templates (svn checkout of http://closure-templates.googlecode.com/svn/trunk/)
+		-->
+		
     <!-- Path to this file from base.js (wierd thing used by depswriter.py) -->
     <property name="fromBase.dir"
         value="../../../../AppEngine/elevate300/uncompiled" />
-	
-    <!-- The compiler jar file -->
+
+    <!-- Output Build Directory -->
+    <property name="build.dir" value="${basedir}/../js" />
+
+<!-- Convenience locations that don't need to change (if you used the recommended folder structure) -->
+
+    <!-- The compiler jar file (present after you do a "ant jar" build in the closure-compiler folder) -->
     <property name="compiler.jar" value="${closure.dir}/closure-compiler/build/compiler.jar" />
 	
     <!-- Library Directory -->
     <property name="closure-library.dir" value="${closure.dir}/closure-library" />
 
-    <!-- Output Build Directory -->
-    <property name="build.dir" value="${basedir}/../js" />
 
 <!-- Reuseable commands -->
 
@@ -37,8 +46,11 @@
       </exec>
     </sequential>
   </macrodef>
+		
+  <!-- Note: I deleted the Soy templates generator in this version.  -->
 
   <!-- closurebuilder.py to compile the JavaScript -->
+	<!-- If you have multiple roots or multiple namespaces use the extraflags -->
   <macrodef name="closure-builder">
     <attribute name="root" />
     <attribute name="namespace" />
@@ -67,6 +79,8 @@
 	
 <!-- Targets -->
 	
+	<!-- Note: Deleted the clean target in this version since the build folder has other stuff in it.  -->
+	
   <target name="gen_js_deps" description="generates deps.js">
     <depswriter
     	pathFromCurrentDir = 'js'
@@ -77,81 +91,27 @@
 	
 	<!-- Options for the compilationlevels:
 		WHITESPACE_ONLY, SIMPLE_OPTIMIZATIONS, ADVANCED_OPTIMIZATIONS" -->
-
-  <target name="transaction" description="generates transaction.js">
-    <closure-builder
-    	root='${basedir}/js/'
-    	namespace='elevate300.Transaction'
-      outputfile="${build.dir}/transaction.js"
-      compilationlevel="ADVANCED_OPTIMIZATIONS" >
-      <extraflags>
-        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
-        <arg line='--compiler_flags="--jscomp_error=checkTypes"' />
-      </extraflags>
-    </closure-builder>
-  </target>
-
-  <target name="trip" description="generates trip.js">
-    <closure-builder
-      root='${basedir}/js/'
-      namespace='elevate300.Trip'
-      outputfile="${build.dir}/trip.js"
-      compilationlevel="ADVANCED_OPTIMIZATIONS" >
-      <extraflags>
-        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
-        <arg line='--compiler_flags="--jscomp_error=checkTypes"' />
-      </extraflags>
-    </closure-builder>
-  </target>
-
-  <target name="options" description="generates options.js">
-    <closure-builder
-      root='${basedir}/js/'
-      namespace='elevate300.Options'
-      outputfile="${build.dir}/options.js"
-      compilationlevel="ADVANCED_OPTIMIZATIONS" >
-      <extraflags>
-        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
-        <arg line='--compiler_flags="--jscomp_error=checkTypes"' />
-      </extraflags>
-    </closure-builder>
-  </target>
-
-  <target name="leaderboard" description="generates leaderboard.js">
-    <closure-builder
-      root='${basedir}/js/'
-      namespace='elevate300.Leaderboard'
-      outputfile="${build.dir}/leaderboard.js"
-      compilationlevel="ADVANCED_OPTIMIZATIONS" >
-      <extraflags>
-        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
-        <arg line='--compiler_flags="--jscomp_error=checkTypes"' />
-      </extraflags>
-    </closure-builder>
-  </target>
   
-  <target name="home_logged_in" description="generates home_logged_in.js">
-    <closure-builder
-      root='${basedir}/js/'
-      namespace='elevate300.HomeLoggedIn'
-      outputfile="${build.dir}/home_logged_in.js"
-      compilationlevel="ADVANCED_OPTIMIZATIONS" >
-      <extraflags>
-        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
-        <arg line='--compiler_flags="--jscomp_error=checkTypes"' />
-      </extraflags>
-    </closure-builder>
-  </target>
+	<!-- extraflags you might want to add (replace XX with two hypens) -->
+    <!-- <arg line='XXcompiler_flags="XXjscomp_error=checkTypes"' /> -->
+    <!-- <arg line='XXroot=folder/with/other/js/files' /> -->
+    <!-- <arg line='XXnamespace=yournamespace.yourmodule' /> -->
+    <!-- <arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
+    <!-- <arg line='XXcompiler_flags="XXformatting=PRINT_INPUT_DELIMITER"' /> -->
+    <!-- <arg line='XXcompiler_flags="XXdebug=true"' /> -->		
+    <!-- <arg line='XXcompiler_flags="XXgenerate_exports=true"' /> -->		
+    <!-- <arg line='XXcompiler_flags="XXexterns=someFileWithExterns.js"' /> -->
 
-  
-  <target name="all" description="generates all.js">
+
+  <target name="all_js" description="generates all.js">
     <closure-builder
       root='${basedir}/js/'
       namespace='elevate300.Transaction'
       outputfile="${build.dir}/elevate300.js"
       compilationlevel="ADVANCED_OPTIMIZATIONS" >
       <extraflags>
-        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' /> -->
+        <!--<arg line='XXcompiler_flags="XXformatting=PRETTY_PRINT"' />
+        <arg line='XXcompiler_flags="XXdebug=true"' /> -->   
         <arg line='--compiler_flags="--jscomp_error=checkTypes"' />
         <arg line='--namespace=elevate300.Trip' />
         <arg line='--namespace=elevate300.Options' />
@@ -161,7 +121,6 @@
     </closure-builder>
   </target>
 	
-	<target name="build"
-		  depends="gen_js_deps, transaction, trip, options, home_logged_in, leaderboard" />
+	<target name="build" depends="gen_js_deps, all_js" />
     
 </project>

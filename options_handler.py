@@ -30,7 +30,6 @@ class OptionsHandler(webapp.RequestHandler):
 	# The post will have a parameter for 'current-trip-select'
 	def post(self):
 		userPreference = userprefs.get_userprefs()
-		logging.info(self.request)
 		try:
 			idSelected = self.request.get('current-trip-select')
 			if idSelected != 0:
@@ -39,7 +38,7 @@ class OptionsHandler(webapp.RequestHandler):
 				userPreference.put()
 		except:
 			# User entered a value that wasn't legal.  Ignore for now.
-			logging.info("Trip not set")
+			logging.warning("Error: Trip not set")
 		self.redirect('/options')
 
 def main():

@@ -41,5 +41,8 @@ handlers:
   script: trip_handler.py
   login: required
 
+- url: /casinos/*
+  script: casinos_handler.py
+
 - url: /
   script: home_handler.py

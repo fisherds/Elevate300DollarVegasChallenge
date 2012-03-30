@@ -29,6 +29,10 @@ select {
 }
 
 #casino-text {
+  display: inline-block;
+}
+
+#casino-select {
   display: none;
 }
 
@@ -46,24 +50,25 @@ select {
 }
 
 #cancel {
-  display: inline-block;
+	float: left;
   width: 120px;
   font-size: 22px;
 }
 
 #extra-button {
-  position: absolute;
-  display: inline-block;
-  left: 40%;
+	float: left;
+	clear: left;
+	margin-top: 5px;
   width: 120px;
-  margin-top: 4px;
   font-size: 18px;
 }
 
 #submit {
 	float: right;
-  display: inline-block;
-	width: 120px;
+  width: 120px;
+  height: 50px;
+  padding-top: 15px;
+  margin-top: 3px;
 	margin-right: 14px;
   font-size: 22px;
 }
@@ -74,4 +79,32 @@ select {
 
 #is-delete {
   display: none;
+}
+
+
+
+/*
+ * Autocomplete stuff
+ */
+.ac-renderer {
+  font: normal 16px Arial, sans-serif;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #666;
+  -moz-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
+  -webkit-box-shadow: 2px 2px 2px rgba(102, 102, 102, .4);
+  width: 300px;
+}
+
+.ac-row {
+  cursor: pointer;
+  padding: .4em;
+}
+
+.ac-highlighted {
+  font-weight: bold;
+}
+
+.ac-active {
+  background-color: #b2b4bf;
 }

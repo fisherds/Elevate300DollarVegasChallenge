@@ -25,7 +25,6 @@ class TripHandler(webapp.RequestHandler):
 		# Determine if this is an edit or a new trip
 		tripId = self.request.get('id')
 		if tripId and int(tripId) != 0: # Shouldn't ever send 0, but just in case my other code glitches :)
-			logging.info("Edit the existing trip with id = " + tripId)
 			editTrip = trip.get_trip(int(tripId))
 			if editTrip.is_a_member():
 				# OK you are indeed in the requested trip id, you may edit.  Just checking.
@@ -46,8 +45,7 @@ class TripHandler(webapp.RequestHandler):
 			else:
 				self.response.out.write("You do not appear to have access to modify Trip id " + tripId)
 				return
-		else:
-			logging.info("New trip.  Don't pre fill in any data.")
+
 		values = {'creator_name': creator_name, 'creator_email': creator_email, 'creator_phone': creator_phone,
 				  'trip_name': trip_name, 'trip_key_id': trip_key_id,
 				  'trip_members': trip_members,
@@ -55,20 +53,16 @@ class TripHandler(webapp.RequestHandler):
 		self.response.out.write(template.render('templates/trip.html', values))
 		
 	def post(self):
-		logging.info(self.request)
-		
 		currentUserprefs = userprefs.get_userprefs()
 		current_trip_name = self.request.get('trip_name')
 		if len(current_trip_name) == 0:
 			current_trip_name = 'Empty trip name'
 		trip_key_id = int(self.request.get('trip_key_id', default_value=0))
 		if trip_key_id != 0:
-			logging.info("Update to an existing trip")
 			current_trip = trip.get_trip(trip_key_id)
 			current_trip.trip_name = current_trip_name
 			current_trip.delete_non_creator_members()
 		else:
-			logging.info("New trip")
 			current_trip = trip.Trip(trip_name = current_trip_name)
 		current_trip.put()
 		currentUserprefs.current_trip = current_trip
@@ -95,12 +89,12 @@ class TripHandler(webapp.RequestHandler):
 				newMember.email_address = standardized_email_address
 				newMember.phone_number = member.standardize_phone_number(phoneNumberValues[i])
 				newMember.put();
-				logging.info("Successfully added member.")
-				logging.info("i=" + str(i) + "  displayName = " + displayNameValues[i])
-				logging.info("i=" + str(i) + "  emailAddressValues = " + emailAddressValues[i].lower())
-				logging.info("i=" + str(i) + "  phoneNumberValues = " + phoneNumberValues[i])
+				# logging.info("Successfully added member.")
+				# logging.info("i=" + str(i) + "  displayName = " + displayNameValues[i])
+				# logging.info("i=" + str(i) + "  emailAddressValues = " + emailAddressValues[i].lower())
+				# logging.info("i=" + str(i) + "  phoneNumberValues = " + phoneNumberValues[i])
 			except:
-				logging.info("Did not add member at index " + str(i) + ".")
+				logging.info("Error: Did not add member at index " + str(i) + ".")
 				
 		self.redirect('/options')
   

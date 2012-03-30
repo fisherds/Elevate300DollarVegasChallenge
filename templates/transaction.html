@@ -1,3 +1,4 @@
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -5,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
 <!-- These links will work for production (fail during uncompiled development) -->
-  <link rel="apple-touch-icon" href="/images/blueButton.png">
+  <link rel="apple-touch-icon" href="/images/ic_elevate_300.png">
 	<!-- <script src="/js/transaction.js"></script>-->
   <script src="/js/elevate300.js"></script>
   <link rel="stylesheet" type="text/css" href="style/common.css">
@@ -55,8 +56,8 @@
   <input class="text-input-box" type="text" name="amount" value="{{amount_value}}" id="amount">
   <br>
   <label class="text-input-label" for="casino">Casino:</label>
-  <input class="text-input-box" type="text" name="casino_text" value="{{select_casino}}" id="casino-text" disabled="disabled">
-  <select name="casino_select" id="casino-select">
+  <input class="text-input-box" type="text" name="casino_text" value="{{select_casino}}" id="casino-text">
+  <select name="casino_select" id="casino-select" disabled="disabled">
     <option value="Other">Other</option> 
   </select>
   <br>
@@ -76,15 +77,13 @@
   <label class="text-input-label" for="notes" id="notes-label">Notes:</label>
   <textarea class="text-input-box" name="notes" id="notes">{{notes}}</textarea>
   <br>
-  <div>
-    <span id="cancel" class="borderImageBtn whiteButton">Cancel</span>
-    <span id="submit" class="borderImageBtn blueButton">Submit</span>
-  </div>
   <input type="text" name="is_add_on" value="False" id="is-add-on" disabled="disabled">
   <input type="text" name="is_delete" value="False" id="is-delete" disabled="disabled">
+  <div id="cancel" class="borderImageBtn whiteButton">Cancel</div>
+  <div id="submit" class="borderImageBtn blueButton">Submit</div>
   <div id="extra-button" class="borderImageBtn whiteButton">Use Add On</div>
 </form>
 <script>
-  new elevate300.Transaction("{{casino_options}}", "{{select_casino}}", "{{add_ons_used}}");
+  new elevate300.Transaction("{{select_casino}}", "{{add_ons_used}}", "{{all_games}}");
 </script>
 </body>

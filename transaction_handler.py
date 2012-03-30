@@ -32,15 +32,6 @@ class TransactionHandler(webapp.RequestHandler):
 		selectGamePlayed = ''
 		transaction_id = 0
 		
-		# Hardcode some casinos to practice with the JS
-		# These are passed into the JavaScript then JS fills in the casino options
-		# This list can get very large.
-		mtv = {'name': 'Fisher apt', 'latitude': 37.3958471, 'longitude': -122.0937461}
-		mgm = {'name': 'MGM Grand', 'latitude': 1, 'longitude': 4}
-		mandalayBay = {'name': 'Mandalay Bay', 'latitude': 12, 'longitude': 45}
-		luxor = {'name': 'Luxor', 'latitude': 123, 'longitude': 456}
-		casinoOptions = [mtv, mgm, mandalayBay, luxor]
-		
 		# Hardcode some games to practice with the JS
 		# These are used by Django
 		gamePlayedOptions = ['Blackjack', "Hold'em (no limit)", "Hold'em (limit)","Hold'em (tournament)",
@@ -48,9 +39,16 @@ class TransactionHandler(webapp.RequestHandler):
 		
 		# Hardcode add ons used to practice with the JS
 		# These are passed into the JavaScript
-		addOn1 = {'email_address': 'test@example.com', 'challenge_type': '0'}
-		addOn2 = {'email_address': 'test42@example.com', 'challenge_type': '1'}
-		addOnsUsed = [addOn1, addOn2]
+		# addOn1 = {'email_address': 'test@example.com', 'challenge_type': '0'}
+		# addOn2 = {'email_address': 'test42@example.com', 'challenge_type': '1'}
+		
+		addOnsUsed = []
+		allAddOns = currentTrip.get_all_addons()
+		for anAddOn in allAddOns:
+			if anAddOn.used_add_on:
+				standardized_email_address = member.standardize_email_address(anAddOn.email_address)
+				# Find the player key for this Add on
+				addOnsUsed.append({'email_address': standardized_email_address, 'challenge_type': str(anAddOn.challenge_type)})
 		
 		editingTransactionId = self.request.get('id')
 		if editingTransactionId and int(editingTransactionId) != 0: # Shouldn't ever send 0, but just in case my other code glitches :)
@@ -97,16 +95,15 @@ class TransactionHandler(webapp.RequestHandler):
 				  'challenge_type_options': transaction.CHALLENGE_TYPES,
 				  'select_challenge_type': select_challenge_type,
 				  'amount_value': amountValue,
-				  'casino_options': casinoOptions,
 				  'select_casino': selectCasino,
 				  'game_played_options': gamePlayedOptions,
+				  'all_games': gamePlayedOptions,
 				  'select_game_played': selectGamePlayed,
 				  'notes': notes,
 				  'add_ons_used': addOnsUsed}
 		self.response.out.write(template.render('templates/transaction.html', values))
 
 	def post(self):
-		logging.info(self.request)
 		currentTrip = userprefs.get_users_current_trip()
 		if self.request.get('is_delete') == 'True':
 			try:

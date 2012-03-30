@@ -79,8 +79,6 @@ class IndividualHandler(webapp.RequestHandler):
 			displayResult['gamblingEvents'] = playerResults[aKey]['gamblingEvents']
 			displayResults.append(displayResult)
 
-		logging.info(playerResults)
-		logging.info(displayResults)
 		values = {'displayResults': displayResults}
 		self.response.out.write(template.render('templates/individual.html', values))
 

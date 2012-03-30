@@ -69,9 +69,9 @@ def _find_or_create_a_current_trip(userprefs):
 	query.order("-created_date_time")
 	mostRecentMemberEntityForEmail = query.get()
 	if mostRecentMemberEntityForEmail:
-		logging.info("Found a trip for email address " + standardized_email_address)
+		logging.info("Datastore: Found a trip for email address " + standardized_email_address)
 		userprefs.current_trip = mostRecentMemberEntityForEmail.key().parent()
 	else:
-		logging.info("Had to create a default trip for email address " + standardized_email_address)
+		logging.info("New: Had to create a default trip for email address " + standardized_email_address)
 		userprefs.current_trip = trip.create_default_trip()
 

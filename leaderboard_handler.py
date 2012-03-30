@@ -85,10 +85,8 @@ class LeaderboardHandler(webapp.RequestHandler):
 		
 		# Order the keys by their total and create the necessary strings for the renderer
 		allKeys = playerResults.keys()
-		logging.info(allKeys)
 		# sort the keys using the total
 		sortedKeys = sorted(allKeys, key=lambda resultKey: -playerResults[resultKey]['total'])
-		logging.info(sortedKeys)		
 		displayResults = []
 		for aKey in sortedKeys:
 			displayResult = {}
@@ -114,9 +112,6 @@ class LeaderboardHandler(webapp.RequestHandler):
 			displayResult['gamblingEvents'] = playerResults[aKey]['gamblingEvents']
 			displayResults.append(displayResult)
 
-		#names.append(aTransaction.name)
-		logging.info(playerResults)
-		logging.info(displayResults)
 		values = {'displayResults': displayResults}
 		self.response.out.write(template.render('templates/leaderboard.html', values))
 
