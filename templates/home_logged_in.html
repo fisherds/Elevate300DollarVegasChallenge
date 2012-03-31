@@ -16,20 +16,47 @@
     <span class="button left" onClick="javascript:window.location.href='{{logout_link}}'">Log out</span>
     <span class="button right" onClick="javascript:window.location.href='/info.html'">Info</span>
 <center>
-<div id="welcome">Hello <span class="nickname">{{name}}</span>, your current trip is...</div>
+<div id="welcome">Hello <span class="nickname">{{name}}</span>, your current trip is</div>
 <div id="trip-name">{{current_trip_name}}</div>
-
 </center>
 <div class="outer-box">
-
   <div class="inner-box"></div>
   <div class="inner-box"></div>
   <div class="inner-box"></div>
   <div class="inner-box"></div>
-    <div id="leaderboard" class="inner-box-text">$300<br>Challenge</div>
-    <div id="individual" class="inner-box-text">Individual<br>Standings</div>
-    <div id="transaction" class="inner-box-text">Add<br>Transaction</div>
-    <div id="options" class="inner-box-text">Trip<br>Options</div>
+  
+  <div id="leaderboard" class="inner-box-text" style="display: table; height: 100px; #position: relative; overflow: hidden;">
+    <div style="#position: absolute; #top: 50%;display: table-cell; vertical-align: middle;">
+      <div class="actual-text" style="#position: relative; #top: -50%; ">
+        $300<br>Challenge<br>Leaderboard
+      </div>
+    </div>
+  </div>
+  <div id="individual" class="inner-box-text" style="display: table; height: 100px; #position: relative; overflow: hidden;">
+    <div style="#position: absolute; #top: 50%;display: table-cell; vertical-align: middle;">
+      <div class="actual-text" style="#position: relative; #top: -50%; ">
+        Individual<br>Standings
+      </div>
+    </div>
+  </div>
+    <div id="transaction" class="inner-box-text" style="display: table; height: 100px; #position: relative; overflow: hidden;">
+    <div style="#position: absolute; #top: 50%;display: table-cell; vertical-align: middle;">
+      <div class="actual-text" style="#position: relative; #top: -50%; ">
+        Add<br>Transaction
+      </div>
+    </div>
+  </div>
+    <div id="options" class="inner-box-text" style="display: table; height: 100px; #position: relative; overflow: hidden;">
+    <div style="#position: absolute; #top: 50%;display: table-cell; vertical-align: middle;">
+      <div class="actual-text" style="#position: relative; #top: -50%; ">
+        Trip<br>Options
+      </div>
+    </div>
+  </div>  
+<!--   <div id="leaderboard" class="inner-box-text">$300<br>Challenge<br>Leaderboard</div>
+  <div id="individual" class="inner-box-text">Individual<br>Standings</div>
+  <div id="transaction" class="inner-box-text">Add<br>Transaction</div>
+  <div id="options" class="inner-box-text">Trip<br>Options</div> -->
 </div>
 <script>
   new elevate300.HomeLoggedIn();

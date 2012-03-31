@@ -407,16 +407,19 @@ elevate300.Transaction.prototype.updateAddOnVisibility_ = function() {
       }
     }    
   }
-//  var submitEl = goog.dom.getElement('submit');
-//  if (visibilityStr == 'hidden') {
+  var bottomButtons = goog.dom.getElement('bottom-buttons');
+  if (visibilityStr == 'hidden') {
+    goog.dom.classes.add(bottomButtons, 'extra-removed');
 //    goog.style.setStyle(submitEl, 'margin-top', '0');
 //    goog.style.setStyle(submitEl, 'height', '30px');
 //    goog.style.setStyle(submitEl, 'padding-top', '0');
-//  } else {
+    
+  } else {
+    goog.dom.classes.remove(bottomButtons, 'extra-removed');
 //    goog.style.setStyle(submitEl, 'margin-top', '5px');
 //    goog.style.setStyle(submitEl, 'height', '50px');
 //    goog.style.setStyle(submitEl, 'padding-top', '15px');
-//  }
+  }
   goog.style.setStyle(addOnButtonEl, 'visibility', visibilityStr);
 };
 
@@ -451,28 +454,4 @@ elevate300.Transaction.prototype.resizeElements_ = function() {
 	var challengeTypeSelect = goog.dom.getElement('challenge-type');
 	goog.style.setStyle(challengeTypeSelect, 'width', selectWidth + 'px');
 	goog.style.setStyle(challengeTypeSelect, 'margin-left', formMargin + 'px');
-	
-	var textLabelWidth = 60;
-	var textLabels = goog.dom.getElementsByClass('text-input-label');
-	for (var i = 0; i < textLabels.length; i++) {
-		goog.style.setStyle(textLabels[i], 'width', textLabelWidth + 'px');
-	}
-	var textBoxWidth = formWidth - textLabelWidth - 14;
-  var textBoxes = goog.dom.getElementsByClass('text-input-box');
-	for (var i = 0; i < textBoxes.length; i++) {
-		goog.style.setStyle(textBoxes[i], 'width', textBoxWidth + 'px');
-	}
-	var gamePlayedSelect = goog.dom.getElement('game-played-select');
-	goog.style.setStyle(gamePlayedSelect, 'width', textBoxWidth + 'px');
-  var casinoSelect = goog.dom.getElement('casino-select');
-  goog.style.setStyle(casinoSelect, 'width', textBoxWidth + 'px');
-  
-  // Manually center the extra button
-  // Like most items in this area this task should really be done via CSS,
-  // but I suck at CSS and JavaScript is so easy and makes sense.
-  var extraButtonWidth = 120;
-  var extraButtonLeft = (screenWidth - extraButtonWidth) / 2;
-  var extraButtonEl = goog.dom.getElement('extra-button');
-  goog.style.setStyle(extraButtonEl, 'width', extraButtonWidth + 'px');
-  goog.style.setStyle(extraButtonEl, 'left', extraButtonLeft + 'px');
 };

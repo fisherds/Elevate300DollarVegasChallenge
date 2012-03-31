@@ -8,24 +8,35 @@ form {
 }
 
 #transaction-id {
-	display: none;
+  display: none;
 }
 
 select {
-  width: 45%;
+  width: 98%;
   font-size: 18px;
-  margin: 5px 0;
+  margin: 4px 0;
 }
 
 .text-input-label {
-	display:inline-block;
-	width: 60px;
+  display:inline-block;
+  width: 60px;
 }
 
 .text-input-box {
-	width: 120px;
+  width: 90%;
   font-size: 18px;
-  margin: 5px 0;
+  margin: 4px 0;
+}
+
+#amount {
+	margin-left: 2px;
+	width: 100px;
+}
+
+.textarea-box {
+  width: 96%;
+  font-size: 18px;
+  margin: 4px 0;
 }
 
 #casino-text {
@@ -37,40 +48,68 @@ select {
 }
 
 #game-played-text {
-	display: none;
+  display: none;
 }
 
 #notes {
   vertical-align:text-top;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 
 #notes-label {
   margin-top: 2px;
 }
 
+table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+td {
+  margin: 0;
+  padding: 0;
+}
+
+td.labels {
+  width: 60px;
+}
+
+td.input-item {
+}
+
 #cancel {
-	float: left;
-  width: 120px;
+  float: left;
+  width: 40%;
   font-size: 22px;
 }
 
 #extra-button {
-	float: left;
-	clear: left;
-	margin-top: 5px;
-  width: 120px;
+  float: left;
+  clear: left;
+  margin-top: 4px;
+  width: 40%;
   font-size: 18px;
 }
 
+.extra-removed #extra-button {
+  display: none;
+}
+
 #submit {
-	float: right;
-  width: 120px;
-  height: 50px;
-  padding-top: 15px;
-  margin-top: 3px;
-	margin-right: 14px;
+  float: right;
+  width: 40%;
+  margin-right: 14px;
   font-size: 22px;
+  height: 52px;
+  padding-top: 20px;
+  -webkit-transition: all 900ms ease-in-out;
+}
+
+.extra-removed #submit {
+  height: 30px;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 #is-add-on {

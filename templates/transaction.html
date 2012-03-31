@@ -50,18 +50,31 @@
       {% endif %}
     {% endfor %}
   </select>
-
-  <br>
+  <table>
+  <tbody>
+  <tr>
+  <td class="labels">
   <label class="text-input-label" for="amount">Amount:</label>
+  </td>
+  <td class="input-item">
   <input class="text-input-box" type="text" name="amount" value="{{amount_value}}" id="amount">
-  <br>
+  </tr>
+  <tr>
+  <td class="labels>
   <label class="text-input-label" for="casino">Casino:</label>
+  </td>
+  <td class="input-item">
   <input class="text-input-box" type="text" name="casino_text" value="{{select_casino}}" id="casino-text">
   <select name="casino_select" id="casino-select" disabled="disabled">
     <option value="Other">Other</option> 
   </select>
-  <br>
+  </td>
+  </tr>
+  <tr>
+  <td class="labels>
   <label class="text-input-label" for="game_played">Game:</label>
+  </td>
+  <td class="input-item">
   <input class="text-input-box" type="text" name="game_played_text" value="{{game_played_value}}" id="game-played-text" disabled="disabled">
   <select name="game_played_select" id="game-played-select">
     {% for game_played_option in game_played_options %}
@@ -73,15 +86,25 @@
     {% endfor %}
     <option value="Other">Other</option> 
   </select>
-  <br>
+  </td>
+  </tr>
+  <tr>
+  <td class="labels>
   <label class="text-input-label" for="notes" id="notes-label">Notes:</label>
-  <textarea class="text-input-box" name="notes" id="notes">{{notes}}</textarea>
-  <br>
+  </td>
+  <td class="input-item">
+  <textarea class="textarea-box" name="notes" id="notes">{{notes}}</textarea>
+  </td>
+  </tr>
+  </tbody>
+  </table>
   <input type="text" name="is_add_on" value="False" id="is-add-on" disabled="disabled">
   <input type="text" name="is_delete" value="False" id="is-delete" disabled="disabled">
+  <div id="bottom-buttons">
   <div id="cancel" class="borderImageBtn whiteButton">Cancel</div>
   <div id="submit" class="borderImageBtn blueButton">Submit</div>
   <div id="extra-button" class="borderImageBtn whiteButton">Use Add On</div>
+  </div>
 </form>
 <script>
   new elevate300.Transaction("{{select_casino}}", "{{add_ons_used}}", "{{all_games}}");

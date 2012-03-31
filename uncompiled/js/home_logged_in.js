@@ -56,9 +56,11 @@ elevate300.HomeLoggedIn.prototype.init_ = function() {
   logconsole.setCapturing(true);
 
   // Listen for window resize events.
-  this.eventHandler_.listen(window, goog.events.EventType.RESIZE,
-      this.handleResize_);
+//  this.eventHandler_.listen(window, goog.events.EventType.RESIZE,
+//      this.handleResize_);
 
+  // Decided to only do the animation once and ignore resize events
+  // (they caused and iPhone issue)
 
   var innerBoxes = goog.dom.getElementsByClass('inner-box-text');
   for (var i = 0; i < innerBoxes.length; i++) {
@@ -95,36 +97,95 @@ elevate300.HomeLoggedIn.prototype.handleResize_ = function(e) {
  * @private
  */
 elevate300.HomeLoggedIn.prototype.resizeElements_ = function() {
+  var HEADER_SIZE = 75;
   var screenWidth = window.innerWidth;
   var screenHeight = window.innerHeight;
-  var leftMargin = (screenWidth - 100) / 2;
-  var topMargin = (screenHeight - 300 - 96) / 2 + 196;
   var outerBox = goog.dom.getElementByClass('outer-box');
-  goog.style.setStyle(outerBox, 'left', leftMargin + 'px');
-  goog.style.setStyle(outerBox, 'top', topMargin + 'px');
-  goog.style.setStyle(outerBox, '-webkit-transform', 'rotate(360deg)');
   var innerBoxes = goog.dom.getElementsByClass('inner-box');
+  var innerBoxTexts = goog.dom.getElementsByClass('inner-box-text');
+  var actualTextDivs = goog.dom.getElementsByClass('actual-text');
+  var leaderBoardEl = goog.dom.getElement('leaderboard');
+  var individualEl = goog.dom.getElement('individual');
+  var transactionEl = goog.dom.getElement('transaction');
+  var optionsEl = goog.dom.getElement('options');
+  
+  // Turn off animations for the resize event to happen instantly (reset positions)
+  goog.style.setStyle(outerBox, '-webkit-transition', '');
+  goog.style.setStyle(outerBox, '-webkit-transform', 'rotate(0deg)');
   for (var i = 0; i < innerBoxes.length; i++) {
     var innerBox = innerBoxes[i];
-    goog.style.setStyle(innerBox, '-webkit-transform', 'rotate(90deg)');
+    goog.style.setStyle(innerBox, '-webkit-transition', '');
+    goog.style.setStyle(innerBox, '-webkit-transform', 'rotate(0deg)');
+  }
+  for (var i = 0; i < innerBoxTexts.length; i++) {
+    var innerBoxText = innerBoxTexts[i];
+    goog.style.setStyle(innerBoxText, '-webkit-transition', '');
+    goog.style.setStyle(innerBoxText, 'opacity', '0');
+  }
+  goog.style.setStyle(leaderBoardEl, 'top', '0');
+  goog.style.setStyle(individualEl, 'left', '0');
+  goog.style.setStyle(transactionEl, 'left', '0');
+  goog.style.setStyle(optionsEl, 'top', '0');
+  
+  // Resize the boxes and center
+  var maxWidth = (screenWidth - 20) / 3;
+  var maxHeight = (screenHeight - HEADER_SIZE - 20) / 3;
+  var boxSize = Math.min(maxWidth, maxHeight, 100);
+  var boxSizeStr = boxSize + 'px';
+  var leftMargin = (screenWidth - boxSize) / 2;
+  var topMargin = (screenHeight - 3 * boxSize - HEADER_SIZE) / 2 + (boxSize + HEADER_SIZE);
+  goog.style.setStyle(outerBox, 'left', leftMargin + 'px');
+  goog.style.setStyle(outerBox, 'top', topMargin + 'px');
+  goog.style.setStyle(outerBox, 'width', boxSizeStr);
+  goog.style.setStyle(outerBox, 'height', boxSizeStr);
+  for (var i = 0; i < innerBoxes.length; i++) {
+    var innerBox = innerBoxes[i];
+    goog.style.setStyle(innerBox, 'width', boxSizeStr);
+    goog.style.setStyle(innerBox, 'height', boxSizeStr);
+  }
+  for (var i = 0; i < innerBoxTexts.length; i++) {
+    var innerBoxText = innerBoxTexts[i];
+    goog.style.setStyle(innerBoxText, 'width', boxSizeStr);
+    goog.style.setStyle(innerBoxText, 'height', boxSizeStr);
+  }
+  
+  // Resize the font within the boxes
+  var fs = 24;
+  while(fs > 6) {
+    fs--;
+    var everyoneFits = true;
+    for (var i = 0; i < actualTextDivs.length; i++) {
+      goog.style.setStyle(actualTextDivs[i], 'font-size', fs + 'px');
+//      this.logger.info("Box " + i + " has width = " + actualTextDivs[i].offsetWidth + " needs to be " + boxSize);
+      if (actualTextDivs[i].offsetWidth > boxSize + 1) {
+        everyoneFits = false;
+      }
+    }
+    if (everyoneFits) {
+      break;
+    }
+  }
+  fs--;
+  for (var i = 0; i < actualTextDivs.length; i++) {
+    goog.style.setStyle(actualTextDivs[i], 'font-size', fs + 'px');
   }
 
-  var leaderBoardEl = goog.dom.getElement('leaderboard');
-  goog.style.setStyle(leaderBoardEl, 'left', '0');
-  goog.style.setStyle(leaderBoardEl, 'top', '-72px');
-  goog.style.setStyle(leaderBoardEl, 'opacity', '1');
-  var individualEl = goog.dom.getElement('individual');
-  goog.style.setStyle(individualEl, 'left', '-100px');
-  goog.style.setStyle(individualEl, 'top', '31px');
-  goog.style.setStyle(individualEl, 'opacity', '1');
-  var transactionEl = goog.dom.getElement('transaction');
-  goog.style.setStyle(transactionEl, 'left', '100px');
-  goog.style.setStyle(transactionEl, 'top', '31px');
-  goog.style.setStyle(transactionEl, 'opacity', '1');
-  var optionsEl = goog.dom.getElement('options');
-  goog.style.setStyle(optionsEl, 'left', '0');
-  goog.style.setStyle(optionsEl, 'top', '130px');
-  goog.style.setStyle(optionsEl, 'opacity', '1');
-  
+  // Turn animations back on and do some transforms
+  goog.style.setStyle(outerBox, '-webkit-transition', 'all 1300ms ease-in-out 300ms');
+  goog.style.setStyle(outerBox, '-webkit-transform', 'rotate(360deg)');
+  for (var i = 0; i < innerBoxes.length; i++) {
+    var innerBox = innerBoxes[i];
+    goog.style.setStyle(innerBox, '-webkit-transition', 'all 1000ms ease-in-out 600ms');
+    goog.style.setStyle(innerBox, '-webkit-transform', 'rotate(90deg)');
+  }
+  for (var i = 0; i < innerBoxTexts.length; i++) {
+    var innerBoxText = innerBoxTexts[i];
+    goog.style.setStyle(innerBoxText, '-webkit-transition', 'all 1000ms ease-in-out 1300ms');
+    goog.style.setStyle(innerBoxText, 'opacity', '1');
+  }
+  goog.style.setStyle(leaderBoardEl, 'top', '-' + (boxSize+2) + 'px');
+  goog.style.setStyle(individualEl, 'left', '-' + boxSizeStr);
+  goog.style.setStyle(transactionEl, 'left', boxSizeStr);
+  goog.style.setStyle(optionsEl, 'top', boxSizeStr);
 };
 

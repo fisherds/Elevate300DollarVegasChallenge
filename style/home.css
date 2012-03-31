@@ -14,8 +14,14 @@ img.logo {
 }
 .button-focused {
 }
-.welcome {
+
+#welcome {
+	text-align: center;
+	position: absolute;
   font-style: italic;
+  margin: 0;
+  top: 44px;
+  width: 100%;
 }
 .nickname {
 	color: #ccf
@@ -25,7 +31,15 @@ img.logo {
   font-size: 8px;
 }
 	
-.trip-name {
+#trip-name {
+  color: #aa0;
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+  position: absolute;
+  margin: 0;
+  top: 58px;
+  width: 100%;
 }
    
 .outer-box {
@@ -36,7 +50,7 @@ img.logo {
   width: 100px;
   height: 100px;
   background: #222;
-  -webkit-transition: all 1300ms ease-in-out 300ms;
+/*  -webkit-transition: all 1300ms ease-in-out 300ms; */
 }
 
 .outer-box .inner-box {
@@ -44,7 +58,7 @@ img.logo {
   border-radius: 20px;
   width: 100px;
   height: 100px;
-  -webkit-transition: all 1000ms ease-in-out 600ms;
+/*  -webkit-transition: all 1000ms ease-in-out 600ms; */
 }
   
 .outer-box .inner-box:nth-child(1) {
@@ -102,10 +116,9 @@ img.logo {
 .inner-box-text {
 	position: absolute;
 	opacity: 0;
-	top: 30px;
   width: 100px;
   height: 100px;
 	text-align: center;
   font-weight: bold;
-  -webkit-transition: all 1000ms ease-in-out 1300ms;
+/*  -webkit-transition: all 1000ms ease-in-out 1300ms;  */
 }

@@ -117,6 +117,7 @@
         <arg line='--namespace=elevate300.Options' />
         <arg line='--namespace=elevate300.Leaderboard' />
         <arg line='--namespace=elevate300.HomeLoggedIn' />
+        <arg line='--namespace=elevate300.Info' />
       </extraflags>
     </closure-builder>
   </target>
