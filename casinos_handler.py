@@ -68,6 +68,7 @@ class CasinosHandler(webapp.RequestHandler):
 		casinoOptions.append({'name': 'Aria', 'latitude': 36.107075, 'longitude': -115.177488})
 		casinoOptions.append({'name': "Bally's", 'latitude': 36.113939, 'longitude': -115.170386})
 		casinoOptions.append({'name': 'Bellagio', 'latitude': 36.113168, 'longitude': -115.175879})
+		casinoOptions.append({'name': "Bill's",  'latitude': 36.114997, 'longitude': -115.171845})
 		casinoOptions.append({'name': "Caesar's Palace", 'latitude': 36.11647, 'longitude': -115.175074})
 		casinoOptions.append({'name': 'Casino Royale', 'latitude': 36.120734, 'longitude': -115.171748})
 		casinoOptions.append({'name': 'Circus Circus', 'latitude': 36.137286, 'longitude': -115.164764})

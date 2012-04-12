@@ -51,6 +51,18 @@ def get_member_for_trip(trip_key, email_address):
 			logging.info('Datastore: Retrieved Member for ' + "trip_id:" + str(trip_key.id()) + "key_name:" + standardized_email_address)
 			tripMember.cache_set()
 		else:
+			# Consider: I'm not sure that creating a new member is the way to do this!!!
+			# Consider: Changing this to returning null and then check for side effects.
+			#
+			# Let me explain what happen in this bug here instead of issue tracker (because I'm on a plane)
+			#
+			# I added golfer@gmail.com and added a transaction for him.
+			# Then Scott deleted golfer@gmail.com and added mholzie@gmail.com
+			# This left an orphan transaction for the email address golfer@gmail.com
+			# The leaderboard_handler then got the display name for golfer@gmail.com for that transaction
+			# Scott was the person logged in at the time.
+			# When this code ran it 
+			
 			logging.info('New: Created Member for ' + "trip_id:" + str(trip_key.id()) + "key_name:" + standardized_email_address)
 			tripEntity = trip.get_trip(trip_key.id())
 			tripMember = tripEntity.create_member(standardized_email_address)

@@ -95,7 +95,12 @@ class TripHandler(webapp.RequestHandler):
 				# logging.info("i=" + str(i) + "  phoneNumberValues = " + phoneNumberValues[i])
 			except:
 				logging.info("Error: Did not add member at index " + str(i) + ".")
-				
+		
+		
+		# TODO: Clean up the transactions!!!!
+		# If an email address got removed then the transactions for the deleted email must go!
+		# That is one solution to this problem.
+		
 		self.redirect('/options')
   
 def main():
